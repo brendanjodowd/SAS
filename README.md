@@ -1,2 +1,2 @@
-# SAS_macros
+# SAS
 Some of my SAS macros
