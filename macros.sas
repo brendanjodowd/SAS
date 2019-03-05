@@ -12,3 +12,7 @@ These both return a word.
 %macro last_word(sentence);
 %scan(&sentence,-1)
 %mend;
+
+%macro second_word(sentence);
+%scan(&sentence,2)
+%mend;
