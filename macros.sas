@@ -16,3 +16,4 @@ These both return a word.
 %macro second_word(sentence);
 %scan(&sentence,2)
 %mend;
+
