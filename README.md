@@ -73,9 +73,9 @@ The main advantage of this is that it allows you to define the list in one locat
 You could also just define the years and derive the list of files using ```%add_prefix()```:
 
 ```SAS
-%let list_of_sales_year = 2010 2011 2012;
+%let list_of_sales_years = 2010 2011 2012;
 
-%running_thru_list(%add_prefix(&list_of_sales_year , _SALES) , the_first_macro);
-%running_thru_list(%add_prefix(&list_of_sales_year , _SALES) , the_second_macro);
-%running_thru_list(%add_prefix(&list_of_sales_year , _SALES) , the_third_macro);
+%running_thru_list(%add_prefix(&list_of_sales_years , _SALES) , the_first_macro);
+%running_thru_list(%add_prefix(&list_of_sales_years , _SALES) , the_second_macro);
+%running_thru_list(%add_prefix(&list_of_sales_years , _SALES) , the_third_macro);
 ```
