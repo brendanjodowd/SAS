@@ -13,25 +13,6 @@ be month, county, local authority, etc.
 It produces three datasets which tell you about the NAMEs of variables in each year, the
 TYPE of each variable in each year, and the LENGTH of each variable in each year.
 
-                                   EXAMPLES OF USE
-
-Suppose I have HEA libraries called HEA2010, HEA2011, etc. and files within called
-HEA_GRADS_2010 , HEA_GRADS_2011
-%tell_me_about(library = HEA , filename = HEA_GRADS_ , list = 2010 2011 2012 2013);
-
-Suppose I have P35 libraries called P352010, P352011, etc. and files within called
-P35_2010_br , P35_2012_br
-%tell_me_about(library = P35 , filename = P35_ , list = 2010 2011 2012 2013 ,  suffix = _br );
-
-Suppose I have ITF11 libraries called F112010, F112011, etc. and the files within each one is called
-ACCOUNTS in every single year
-%tell_me_about(library = F11 , filename = ACCOUNTS , list = 2010 2011 2012 2013 ,  list_bit_after_filename=NO );
-
-Suppose I have JUST ONE library called COURSES_ALL_YEARS and there are many files within called
-COURSES_2010 COURSES_2011 COURSES_2012 COURSES_2013
-%tell_me_about(library = COURSES_ALL_YEARS , filename = COURSES_ , list = 2010 2011 2012 2013 ,  list_bit_after_library=NO );
-
-
 */
 /*
 The first bit makes NAME TYPE LENGTH NOBS columns for each year
