@@ -54,7 +54,9 @@ You could simply write:
 %process_sales(SALES_2011);
 %process_sales(SALES_2012);
 ```
-This macro allows you to replace this with:
+A problem here is that you're hard-coding the years in. If you have lots of macros in your process flow then you'll need to specify the years in lots of places, making updates tricky.
+
+```running_thru_list``` allows you to replace this with:
 ```
 %running_thru_list(SALES_2010 SALES_2011 SALES_2012 , process_sales);
 ```
