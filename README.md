@@ -5,7 +5,7 @@ Some of my SAS macros
 
 
 ## variable_macros
-[vm]:SAS#variable_macros
+[vm]:README.md#variable_macros
 Macros for dealing with variables in SAS datasets.
 ***
 ```SAS
