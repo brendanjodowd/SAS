@@ -43,8 +43,9 @@ A handy macro for changing variable names. Uses ```proc datasets``` and so is ef
 
 ## Running Thru List
 
-This is a macro for carrying out another macro over and over again on a list of things (e.g. a sequence of similar datasets).
-A nice feature is that it outputs a progress bar to the log as well as the estimated time remaining. 
+Very often you have to apply a macro over and over again on a sequence of similar datasets. The macro ```running_thru_list``` does this for you, given a list and the name of the macro that you want to apply to that list. 
+
+A nice feature is that it outputs a progress bar to the log as well and an estimation for what time the whole process will be finished at. 
 
 Suppose you had a list of datasets called ```SALES_2010```, ```SALES_2011```, ```SALES_2012```, etc., and you wanted to pass them through a macro you have already created called ```process_sales```.
 
