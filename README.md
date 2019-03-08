@@ -1,9 +1,9 @@
 # SAS
 Some of my SAS macros
 
-*[variable_macros][vm]*
+**[variable_macros][vm]**
 
-*[running_thru_list][rtl]*
+**[running_thru_list][rtl]**
 
 
 ## variable_macros
