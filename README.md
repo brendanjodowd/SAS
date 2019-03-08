@@ -2,10 +2,10 @@
 Some of my SAS macros
 
 [variable_macros][vm]
-[vm]:#variable_macros
+
 
 ## variable_macros
-
+[vm]:SAS#variable_macros
 Macros for dealing with variables in SAS datasets.
 ***
 ```SAS
