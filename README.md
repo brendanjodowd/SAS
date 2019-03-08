@@ -5,6 +5,8 @@ Some of my SAS macros
 
 **[running_thru_list][rtl]**
 
+**[tell_me_about][tma]**
+
 
 ## variable_macros
 [vm]:README.md#variable_macros
@@ -85,3 +87,15 @@ You could also just define the years and derive the list of files using ```%add_
 %running_thru_list(%add_prefix(&list_of_sales_years , _SALES) , the_second_macro);
 %running_thru_list(%add_prefix(&list_of_sales_years , _SALES) , the_third_macro);
 ```
+
+
+## tell_me_about
+[tma]:README.md#tell_me_about
+
+This macro is useful for where you have a series of datasets that are similar, but may have small changes from one to the next. E.g. maybe the length of a variable changes, maybe the name of one variable changes slightly from one dataset to the next, maybe an indictor is of type 'char' in one dataset and type 'numeric' in another. 
+
+This macro creates three output datasets which compare the stucture of a series of datasets. 
+* **name_record** - gives the variable names in each dataset.
+* **type_record** - gives the type (C or N) of each variable in each dataset.
+* **length_record** - gives the length of each variable in each dataset.
+
