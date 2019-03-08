@@ -2,6 +2,7 @@
 Some of my SAS macros
 
 [variable_macros][vm]
+[running_thru_list][rtl]
 
 
 ## variable_macros
@@ -44,7 +45,8 @@ Returns maximum actual length of a variable (not the length of the memory assign
 ```
 A handy macro for changing variable names. Uses ```proc datasets``` and so is efficient.
 
-## Running Thru List
+## running_thru_list
+[vm]:README.md#running_thru_list
 
 Very often you have to apply a macro over and over again on a sequence of similar datasets. The macro ```running_thru_list``` does this for you, given a list and the name of the macro that you want to apply to that list. 
 
