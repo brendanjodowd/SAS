@@ -1,7 +1,7 @@
 # SAS
 Some of my SAS macros
 
-**[list_macros][ls]**
+**[List macros][ls]**
 
 **[variable_macros][vm]**
 
@@ -10,7 +10,7 @@ Some of my SAS macros
 **[tell_me_about][tma]**
 
 
-## list_macros
+## List macros
 [ls]:README.md#list_macros
 Macros for generating lists.
 ***
@@ -23,6 +23,11 @@ Generates and ascending list from one number to another.
 %add_prefix(<some list here>, prefix)
 ```
 Returns a list but with a string concatenated to start of each word. Useful for converting one kind of list into another.
+E.g.
+```SAS
+%put %add_prefix(2010 2011 2012, accounts_);
+```
+... returns: ```accounts_2010 accounts_2011 accounts_2012```
 ***
 ```SAS
 %list_vars(some_dataset)
