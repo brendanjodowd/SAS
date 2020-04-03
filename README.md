@@ -1,12 +1,43 @@
 # SAS
 Some of my SAS macros
 
+**[list_macros][ls]**
+
 **[variable_macros][vm]**
 
 **[running_thru_list][rtl]**
 
 **[tell_me_about][tma]**
 
+
+## list_macros
+[ls]:README.md#list_macros
+Macros for generating lists.
+***
+```SAS
+%seq(x, y)
+```
+Generates and ascending list from one number to another.
+***
+```SAS
+%add_prefix(<some list here>, prefix)
+```
+Returns a list but with a string concatenated to start of each word. Useful for converting one kind of list into another.
+***
+```SAS
+%list_vars(some_dataset)
+```
+Returns a list of variables in a dataset that you might use as part of your code. You might choose to manipulate the string that gets returned, for example by adding or removing certain words. Can be useful in certain proc sql commands where the full list of variables is required. 
+***
+```SAS
+%add_commas(<some list here>)
+```
+Returns a list but with commas between each word. Handy for proc sql and certain other functions.
+***
+```SAS
+%add_keep(<some list here> , var_1 var_2)
+```
+Returns a list but with ```(keep = var_1 var_2)``` after each word. Handy for when you're using ```set``` with a list of datasets.
 
 ## variable_macros
 [vm]:README.md#variable_macros
@@ -16,11 +47,7 @@ Macros for dealing with variables in SAS datasets.
 %print_vars(some_dataset)
 ```
 Provides just the variables part of a proc contents. 
-***
-```SAS
-%list_vars(some_dataset)
-```
-Returns a list of variables in a dataset that you might use as part of your code. You might choose to manipulate the string that gets returned, for example by adding or removing certain words. Can be useful in certain proc sql commands where the full list of variables is required. 
+
 ***
 ```SAS
 %var_exist(some_dataset , some_variable)
