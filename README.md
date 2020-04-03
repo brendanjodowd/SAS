@@ -3,6 +3,8 @@ Some of my SAS macros
 
 **[List macros][ls]**
 
+**[Joining Lists][jl]**
+
 **[variable_macros][vm]**
 
 **[running_thru_list][rtl]**
@@ -42,7 +44,46 @@ Returns a list but with commas between each word. Handy for proc sql and certain
 ```SAS
 %add_keep(<some list here> , var_1 var_2)
 ```
-Returns a list but with ```(keep = var_1 var_2)``` after each word. Handy for when you're using ```set``` with a list of datasets.
+Returns a list but with ```(keep = var_1 var_2)``` after each word. Handy for when you're using ```set``` with a list of datasets. A bit more efficient than specifying these on the output dataset.
+E.g.
+```SAS
+set %add_keep(team_1 team_2 team_3 , name age );
+```
+... becomes: ```set team_1 (keep = name age) team_2 (keep = name age) team_3 (keep = name age);```
+
+## Joining Lists
+[jl]:README.md#joining_lists
+Boolean operations on multiple lists. These are especially powerful when used in combination with ```%list_vars()``` and other macros for modifying lists.
+***
+```SAS
+%union(<first list> <second list> <third list>)
+```
+Returns the combined set of lists with duplicates removed.
+E.g.
+```SAS
+%put %union(id age sales id job name id name height)
+```
+... returns: ```id age sales job name height```
+***
+```SAS
+%intersect_lists(<first list> , <second list>)
+```
+Returns elements which appear in both lists. Very useful for ```keep``` and ```drop``` statements, or where a variable has an inconsistent name across datasets. 
+E.g.
+```SAS
+%put %intersect_lists(id age sales job name , id name height)
+```
+... returns: ```id name```
+***
+```SAS
+%left_anti_join(<first list> , <second list>)
+```
+Returns the first list with the exclusion of any elements which appear in the second. Again, useful for ```keep```, ```drop``` and ```set``` statements. 
+E.g.
+```SAS
+%put %left_anti_join(id age job name , id name height)
+```
+... returns: ```age job```
 
 ## variable_macros
 [vm]:README.md#variable_macros
