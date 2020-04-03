@@ -5,6 +5,8 @@ Some of my SAS macros
 
 **[Joining Lists][jl]**
 
+**[manipulating_macro_lists][ml]**
+
 **[variable_macros][vm]**
 
 **[running_thru_list][rtl]**
@@ -84,6 +86,44 @@ E.g.
 %put %left_anti_join(id age job name , id name height)
 ```
 ... returns: ```age job```
+
+## Manipulating Macro Lists
+[ml]:README.md#manipulating_lists
+Tools for querying and adjusting lists.
+***
+```SAS
+%find_word( <some list> , word)
+```
+Returns ```n```, where ```word``` is the nth word in ```<some list>```, and 0 if ```word``` does not appear in ```<some list>```. Differs from ```FINDW()``` which returns character position. Finds whole words and is case insensitive.
+
+***
+```SAS
+%first_word(<some list>)
+%last_word(<some list>)
+```
+Simply returns the first or last word in a list. 
+***
+```SAS
+%words_beginning_with(<some list> , phrase)
+%words_ending_with(<some list> , phrase)
+%words_containing(<some list> , phrase)
+```
+Returns all words from a list which begin/end/contain ```phrase```. Useful for dropping or keeping a raft of similar variables. 
+***
+```SAS
+%remove_word(<some list> , word)
+```
+Returns the list with ```word``` removed. Case insensitive and matches whole word only. 
+***
+```SAS
+%remove_nth_word(<some list> , n)
+```
+Returns the list with the nth word removed. 
+***
+```SAS
+%replace_word(<some list> , old_word , new_word)
+```
+Returns the list with ```old_word``` replaced by ```new_word```. Case insensitive and matches whole word only.
 
 ## variable_macros
 [vm]:README.md#variable_macros
