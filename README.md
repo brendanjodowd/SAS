@@ -8,8 +8,22 @@ Table of Contents
       * [list_vars](#list_vars)
       * [add_commas](#add_commas)
       * [add_keep](#add_keep)
-  * [Joining Lists](#joining-lists
-  * [Manipulating Words in Strings](#manipulating-wordsin-strings)
+  * [Joining Lists](#joining-lists)
+      * [union](#union)
+      * [intersect_lists](#intersect_lists)
+      * [left_anti_join](#left_anti_join)
+  * [Manipulating Strings]
+      * [as_num, as_char](#as_num-as_char)
+      * [extract_num](#extract_num)
+      * [crop_left, crop_right](#crop_left)
+  * [Manipulating Words in Strings](#manipulating-words-in-strings)
+      * [find_word](#find_word)
+      * [first_word, last_word](#first_word-last_word)
+      * [words_beginning_with, -ending -containg](#words_beginning_with)
+      * [remove_word](#remove_word)
+      * [remove_nth_word](#remove_nth_word)
+      * [replace_word](#replace_word)
+      
 
 
 ## Generating Lists
@@ -54,7 +68,7 @@ set %add_keep(team_1 team_2 team_3 , name age );
 
 ## Joining lists
 Boolean operations on multiple lists. These are especially powerful when used in combination with ```%list_vars()``` and other macros for modifying lists.
-***
+#### union
 ```SAS
 %union(<first list> <second list> <third list>)
 ```
@@ -64,7 +78,7 @@ E.g.
 %put %union(id age sales id job name id name height)
 ```
 ... returns: ```id age sales job name height```
-***
+#### intersect_lists
 ```SAS
 %intersect_lists(<first list> , <second list>)
 ```
@@ -74,7 +88,7 @@ E.g.
 %put %intersect_lists(id age sales job name , id name height)
 ```
 ... returns: ```id name```
-***
+#### left_anti_join
 ```SAS
 %left_anti_join(<first list> , <second list>)
 ```
@@ -85,38 +99,56 @@ E.g.
 ```
 ... returns: ```age job```
 
-## Manipulating Macro Lists
+## Manipulating Strings
+#### as_char as_num
+```SAS
+%as_char( <some numeric variable> )
+%as_num( <some character variable> )
+```
+A neat little expression for quickly making a new numeric/character variable using a character/numeric variable as input. Negates need for put/input in majority of cases. 
+E.g.
+```SAS
+/*inside data step*/
+    numeric_age = %as_num(character_age);
+```
+#### extract_num
+```SAS
+%extract_num( <some string with a number in it> )
+```
+Extract a number which is within a string to make a new variable. Useful in strings that contain a numeric code alongside some text. 
+
+## Manipulating Words in Strings
 Tools for querying and adjusting lists.
-***
+#### find_word
 ```SAS
 %find_word( <some list> , word)
 ```
 Returns ```n```, where ```word``` is the nth word in ```<some list>```, and 0 if ```word``` does not appear in ```<some list>```. Differs from ```FINDW()``` which returns character position. Finds whole words and is case insensitive.
 
-***
+#### first_word last_word
 ```SAS
 %first_word(<some list>)
 %last_word(<some list>)
 ```
 Simply returns the first or last word in a list. 
-***
+#### words_beginning_with 
 ```SAS
 %words_beginning_with(<some list> , phrase)
 %words_ending_with(<some list> , phrase)
 %words_containing(<some list> , phrase)
 ```
 Returns all words from a list which begin/end/contain ```phrase```. Useful for dropping or keeping a raft of similar variables. 
-***
+#### remove_word
 ```SAS
 %remove_word(<some list> , word)
 ```
 Returns the list with ```word``` removed. Case insensitive and matches whole word only. 
-***
+#### remove_nth_word
 ```SAS
 %remove_nth_word(<some list> , n)
 ```
 Returns the list with the nth word removed. 
-***
+#### replace_word
 ```SAS
 %replace_word(<some list> , old_word , new_word)
 ```
