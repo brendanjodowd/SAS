@@ -2,8 +2,8 @@
 Table of Contents
 =================
 
-  * [List Macros](list-macros)
-    * [Idea](joining-lists)
+  * [List Macros](#list-macros)
+    * [Idea](#joining-lists)
     * [Features](#ml)
   * [Installation](#vm)
 
@@ -11,9 +11,9 @@ Table of Contents
 # SAS
 Some of my SAS macros
 
-**[List macros](list-macros)**
+**[List macros](#list-macros)**
 
-**[Joining Lists](joining-lists)**
+**[Joining Lists](#joining-lists)**
 
 **[manipulating_macro_lists][ml]**
 
