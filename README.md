@@ -26,7 +26,7 @@ Some of my SAS macros
 
 List macros
 ===========
-[ls]:README.md#list_macros
+
 Macros for generating lists.
 ***
 ```SAS
