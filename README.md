@@ -2,21 +2,23 @@
 Table of Contents
 =================
 
-  * [List Macros](#list-macros)
-    * [Idea](#joining-lists)
-    * [Features](#ml)
-  * [Installation](#vm)
+  * [Generating Lists](#generating-lists)
+      * [seq](#seq)
+      * [add_prefix](#add_prefix)
+  * [Joining Lists](#joining-lists
+  * [Manipulating Words in Strings](#manipulating-wordsin-strings)
 
 
-# List Macros
-
+## Generating Lists
+#### Seq
 Macros for generating lists.
 ***
 ```SAS
 %seq(x, y)
 ```
-Generates and ascending list from one number to another.
+Generates an ascending list from one number to another.
 ***
+#### add_prefix
 ```SAS
 %add_prefix(<some list here>, prefix)
 ```
@@ -29,6 +31,8 @@ E.g.
 ***
 ```SAS
 %list_vars(some_dataset)
+%list_num_vars(some_dataset)
+%list_char_vars(some_dataset)
 ```
 Returns a list of variables in a dataset that you might use as part of your code. You might choose to manipulate the string that gets returned, for example by adding or removing certain words. Can be useful in certain proc sql commands where the full list of variables is required. 
 ***
@@ -47,8 +51,7 @@ set %add_keep(team_1 team_2 team_3 , name age );
 ```
 ... becomes: ```set team_1 (keep = name age) team_2 (keep = name age) team_3 (keep = name age);```
 
-## joining-lists
-[jl]:README.md#joining_lists
+## Joining lists
 Boolean operations on multiple lists. These are especially powerful when used in combination with ```%list_vars()``` and other macros for modifying lists.
 ***
 ```SAS
@@ -82,7 +85,6 @@ E.g.
 ... returns: ```age job```
 
 ## Manipulating Macro Lists
-[ml]:README.md#manipulating_lists
 Tools for querying and adjusting lists.
 ***
 ```SAS
