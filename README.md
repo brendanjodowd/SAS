@@ -2,8 +2,8 @@
 Table of Contents
 =================
 
-  * [List Macros](#ls)
-    * [Idea](#jl)
+  * [List Macros](list-macros)
+    * [Idea](joining-lists)
     * [Features](#ml)
   * [Installation](#vm)
 
@@ -13,7 +13,7 @@ Some of my SAS macros
 
 **[List macros](list-macros)**
 
-**[Joining Lists][jl]**
+**[Joining Lists](joining-lists)**
 
 **[manipulating_macro_lists][ml]**
 
@@ -24,7 +24,7 @@ Some of my SAS macros
 **[tell_me_about][tma]**
 
 
-## List macros
+# list-macros
 
 Macros for generating lists.
 ***
@@ -63,7 +63,7 @@ set %add_keep(team_1 team_2 team_3 , name age );
 ```
 ... becomes: ```set team_1 (keep = name age) team_2 (keep = name age) team_3 (keep = name age);```
 
-## Joining Lists
+## joining-lists
 [jl]:README.md#joining_lists
 Boolean operations on multiple lists. These are especially powerful when used in combination with ```%list_vars()``` and other macros for modifying lists.
 ***
