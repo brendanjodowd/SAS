@@ -11,7 +11,7 @@ Table of Contents
 # SAS
 Some of my SAS macros
 
-**[List macros][list-macros]**
+**[List macros](list-macros)**
 
 **[Joining Lists][jl]**
 
