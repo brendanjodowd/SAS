@@ -5,6 +5,9 @@ Table of Contents
   * [Generating Lists](#generating-lists)
       * [seq](#seq)
       * [add_prefix](#add_prefix)
+      * [list_vars](#list_vars)
+      * [add_commas](#add_commas)
+      * [add_keep](#add_keep)
   * [Joining Lists](#joining-lists
   * [Manipulating Words in Strings](#manipulating-wordsin-strings)
 
@@ -12,12 +15,10 @@ Table of Contents
 ## Generating Lists
 #### Seq
 Macros for generating lists.
-***
 ```SAS
 %seq(x, y)
 ```
 Generates an ascending list from one number to another.
-***
 #### add_prefix
 ```SAS
 %add_prefix(<some list here>, prefix)
@@ -28,19 +29,19 @@ E.g.
 %put %add_prefix(2010 2011 2012, accounts_);
 ```
 ... returns: ```accounts_2010 accounts_2011 accounts_2012```
-***
+#### list_vars
 ```SAS
 %list_vars(some_dataset)
 %list_num_vars(some_dataset)
 %list_char_vars(some_dataset)
 ```
 Returns a list of variables in a dataset that you might use as part of your code. You might choose to manipulate the string that gets returned, for example by adding or removing certain words. Can be useful in certain proc sql commands where the full list of variables is required. 
-***
+#### add_commas
 ```SAS
 %add_commas(<some list here>)
 ```
 Returns a list but with commas between each word. Handy for proc sql and certain other functions.
-***
+#### add_keep
 ```SAS
 %add_keep(<some list here> , var_1 var_2)
 ```
