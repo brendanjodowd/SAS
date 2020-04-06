@@ -1,4 +1,3 @@
-➥ ./gh-md-toc https://github.com/ekalinin/envirius/blob/master/README.md
 
 Table of Contents
 =================
@@ -25,7 +24,8 @@ Some of my SAS macros
 **[tell_me_about][tma]**
 
 
-## List macros
+List macros
+===========
 [ls]:README.md#list_macros
 Macros for generating lists.
 ***
