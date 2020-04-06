@@ -1,3 +1,14 @@
+➥ ./gh-md-toc https://github.com/ekalinin/envirius/blob/master/README.md
+
+Table of Contents
+=================
+
+  * [List Macros](#ls)
+    * [Idea](#jl)
+    * [Features](#ml)
+  * [Installation](#vm)
+
+
 # SAS
 Some of my SAS macros
 
