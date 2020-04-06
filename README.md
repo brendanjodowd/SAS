@@ -12,7 +12,7 @@ Table of Contents
       * [union](#union)
       * [intersect_lists](#intersect_lists)
       * [left_anti_join](#left_anti_join)
-  * [Manipulating Strings]
+  * [Manipulating Strings](#manipulating-strings)
       * [as_num, as_char](#as_num-as_char)
       * [extract_num](#extract_num)
       * [crop_left, crop_right](#crop_left)
@@ -23,6 +23,7 @@ Table of Contents
       * [remove_word](#remove_word)
       * [remove_nth_word](#remove_nth_word)
       * [replace_word](#replace_word)
+  * [Checking variables in datasets](#checking-variables-in-datasets)
       
 
 
@@ -117,6 +118,14 @@ E.g.
 ```
 Extract a number which is within a string to make a new variable. Useful in strings that contain a numeric code alongside some text. 
 
+#### crop_left crop_right
+```SAS
+%crop_left( string_variable , "phrase" )
+%crop_right( string_variable , "phrase" )
+```
+Similar to LEFT() and RIGHT() in Excel. `crop_left` returns a string up to (and excluding) the first instance of `"phrase"` in `string_variable`. 
+`crop_right` returns the string after the first appearance of `"phrase"`. 
+
 ## Manipulating Words in Strings
 Tools for querying and adjusting lists.
 #### find_word
@@ -153,6 +162,50 @@ Returns the list with the nth word removed.
 %replace_word(<some list> , old_word , new_word)
 ```
 Returns the list with ```old_word``` replaced by ```new_word```. Case insensitive and matches whole word only.
+
+## Checking variables in datasets
+
+#### print_vars
+```SAS
+%print_Vars(dataset_name)
+```
+Prints out a list of variables (inc. type and length) in a short, handy command.
+
+#### var_exist
+```SAS
+%var_exist(dataset_name , variable_name)
+```
+Returns '1' or '0' depending on whether `variable_name` appears in `dataset_name`. Useful for case-based handling of datasets. Also used in some other macros. 
+
+#### var_type
+```SAS
+%var_type(dataset_name , variable_name)
+```
+Returns 'C' or 'N' depending on whether `variable_name` is of type character or numeric. Useful for case-based handling of datasets.
+
+#### var_length
+```SAS
+%var_type(dataset_name , variable_name)
+```
+Returns (memory) length of `variable_name`. Useful for case-based handling of datasets.
+
+#### var_fmt
+```SAS
+%var_fmt(dataset_name , variable_name)
+```
+Returns the format of `variable_name` in `dataset_name`.
+
+#### right_case
+```SAS
+%right_case(dataset_name , variable_name)
+```
+Returns the word `variable_name` again, but with letters capitalised in the same way that they are in the dataset. Used within some other macros to ensure that case-insensitive inputs do not alter the capitalisation of variable names as they are stored. 
+
+#### max_length
+```SAS
+%max_length(dataset_name , some_char_variable)
+```
+This outputs a line to the log which tells you the maximum string length of the variable `some_char_variable`. Useful when you want to reduce the memory available to a variable, but you're not sure if doing so will crop strings. 
 
 ## variable_macros
 [vm]:README.md#variable_macros
