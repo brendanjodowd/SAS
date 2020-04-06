@@ -8,23 +8,7 @@ Table of Contents
   * [Installation](#vm)
 
 
-# SAS
-Some of my SAS macros
-
-**[List macros](#list-macros)**
-
-**[Joining Lists](#joining-lists)**
-
-**[manipulating_macro_lists][ml]**
-
-**[variable_macros][vm]**
-
-**[running_thru_list][rtl]**
-
-**[tell_me_about][tma]**
-
-
-# list-macros
+# List Macros
 
 Macros for generating lists.
 ***
