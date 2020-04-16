@@ -12,7 +12,7 @@ Table of Contents
       * [union](#union)
       * [intersect_lists](#intersect_lists)
       * [left_anti_join](#left_anti_join)
-  * [Manipulating Strings](#manipulating-strings)
+  * [Manipulating String Variables](#manipulating-string-variables)
       * [as_num, as_char](#as_num-as_char)
       * [extract_num](#extract_num)
       * [crop_left, crop_right](#crop_left)
@@ -24,6 +24,12 @@ Table of Contents
       * [remove_nth_word](#remove_nth_word)
       * [replace_word](#replace_word)
   * [Checking variables in datasets](#checking-variables-in-datasets)
+      * [print_vars](#print_vars)
+      * [var_exist](#var_exist)
+      * [var_type](#var_type)
+      * [var_length](#var_fmt)
+      * [right_case](#right_case)
+      * [max_length](#max_length)
       
 
 
@@ -100,7 +106,7 @@ E.g.
 ```
 ... returns: ```age job```
 
-## Manipulating Strings
+## Manipulating String Variables
 #### as_char as_num
 ```SAS
 %as_char( <some numeric variable> )
@@ -207,41 +213,74 @@ Returns the word `variable_name` again, but with letters capitalised in the same
 ```
 This outputs a line to the log which tells you the maximum string length of the variable `some_char_variable`. Useful when you want to reduce the memory available to a variable, but you're not sure if doing so will crop strings. 
 
-## variable_macros
-[vm]:README.md#variable_macros
-Macros for dealing with variables in SAS datasets.
-***
-```SAS
-%print_vars(some_dataset)
-```
-Provides just the variables part of a proc contents. 
+## Managing Datasets and Variables
 
-***
+#### show_datasets
 ```SAS
-%var_exist(some_dataset , some_variable)
+%show_datasets;
 ```
-Returns 1 or 0. 
-***
+Produces a handy table showing all the datasets in the WORK library, including their size, and numbers of rows and columns.
+#### delete_dataset
 ```SAS
-%var_type(some_dataset , some_variable)
+%delate_dataset(dataset_name);
 ```
-Returns N or C. 
-***
+Deletes a dataset. You can also pass a list of datasets, or use in conjunction with colon (:) to delete datasets starting with a common string.
+#### delete_dataset
 ```SAS
-%var_length(some_dataset , some_variable)
+%delate_dataset(dataset_name);
 ```
-Returns (memory) length of variable. 
-***
+Deletes a dataset. You can also pass a list of datasets, or use in conjunction with colon (:) to delete datasets starting with a common string.
+#### rename_var
 ```SAS
-%max_length(some_dataset , some_variable)
+%rename_var(dataset_name , old_var= , new_var=)
 ```
-Returns maximum actual length of a variable (not the length of the memory assigned for the variable). Useful for helping you to decide which variables can be safely cropped to save memory.
-***
+A handy macro for changing variable names. Uses ```proc datasets``` and so is fairly efficient.
+#### rename_if_exist
+```SAS
+%rename_if_exist(dataset_name , old_var= , new_var=);
+```
+Same as previous, but only renames if the old_var exists. Does not return an error if it doesn't exist. Handy if you're dealing with an inconsistent series of datasets. 
+#### add_label
+```SAS
+%add_label(dataset_name , variable_name , label , warn=YES);
+```
+Adds a lael to a variable. WARN is set to yes by default, meaning that you get a warning in the log if the variable doesn't exist. Set it to NO if you don't want that (apply label in the case that the variable exists).
+#### drop_format 
+```SAS
+%drop_format(dataset_name , variable_name);
+```
+Removes a format from a variable. Handy if datasets come in with a weird format. 
 
+## Managing macros and macro variables
+#### show_macros
 ```SAS
-%rename_var(some_dataset , old_var= , new_var=)
+%show_macros;
 ```
-A handy macro for changing variable names. Uses ```proc datasets``` and so is efficient.
+Prints a list of all the macros that have been defined so far. 
+
+#### is_int
+```SAS
+%is_int(<macro variable>)
+```
+Logical test to check if a macro variable can be used as an integer. 
+#### is_blank
+```SAS
+%is_blank(<macro variable>)
+```
+Logical test to check if a macro variable is blank or not. Useful for creating checks within your own macros. 
+
+## Handy abbreviations
+#### proc freq
+```SAS
+%pf(dataset_name , var_1);
+%pf(dataset_name , var_1*var_2);
+```
+Abbreviation for `proc freq`. Displays only counts when a 2D table is requested (`nocol norow nopercent` options).
+#### proc sort
+```SAS
+%ps(dataset_name , var_1 var_2);
+```
+Abbreviation for `proc sort`. Pass any number of variables. 
 
 ## running_thru_list
 [rtl]:README.md#running_thru_list
