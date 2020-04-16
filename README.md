@@ -50,8 +50,7 @@ Table of Contents
 
 
 ## Generating Lists
-#### Seq
-Macros for generating lists.
+#### seq
 ```SAS
 %seq(x, y)
 ```
