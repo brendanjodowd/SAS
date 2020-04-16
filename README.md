@@ -30,6 +30,20 @@ Table of Contents
       * [var_length](#var_fmt)
       * [right_case](#right_case)
       * [max_length](#max_length)
+  * [Managing Datasets and Variables](#managing-datasets-and-variables)
+      * [show_datasets](#show_datasets)
+      * [delete_dataset](#delete_dataset)
+      * [rename_var](#rename_var)
+      * [rename_if_exist](#rename_if_exist)
+      * [add_label](#add_label)
+      * [drop_format](#drop_format)
+  * [Managing macros and macro variables](#managing-macros-and-macro-variables)
+      * [show_macros](#show_macros)
+      * [is_int](#is_int)
+      * [is_blank](#is_blank)
+  * [Handy abbreviations](#handy-abbreviations)
+      * [proc freq](#proc-freq)
+      * [proc sort](#proc-sort)
       
 
 
@@ -225,11 +239,7 @@ Produces a handy table showing all the datasets in the WORK library, including t
 %delate_dataset(dataset_name);
 ```
 Deletes a dataset. You can also pass a list of datasets, or use in conjunction with colon (:) to delete datasets starting with a common string.
-#### delete_dataset
-```SAS
-%delate_dataset(dataset_name);
-```
-Deletes a dataset. You can also pass a list of datasets, or use in conjunction with colon (:) to delete datasets starting with a common string.
+
 #### rename_var
 ```SAS
 %rename_var(dataset_name , old_var= , new_var=)
