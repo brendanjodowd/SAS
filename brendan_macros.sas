@@ -636,7 +636,7 @@ With thanks to Lex Jansen
 %let test_string = %sysfunc(compress(&str ,, kd));
 %if &test_string = &str %then %let result = 1;
 %else %let result = 0;
-&result;
+&result
 %mend; 
 
 /*#####################################################################################*/
