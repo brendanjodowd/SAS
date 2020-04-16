@@ -33,6 +33,7 @@ Table of Contents
       * [max_length](#max_length)
   * [Managing Datasets and Variables](#managing-datasets-and-variables)
       * [show_datasets](#show_datasets)
+      * [dataset_exist](#dataset_exist)
       * [delete_dataset](#delete_dataset)
       * [rename_var](#rename_var)
       * [rename_if_exist](#rename_if_exist)
@@ -235,6 +236,12 @@ This outputs a line to the log which tells you the maximum string length of the 
 %show_datasets;
 ```
 Produces a handy table showing all the datasets in the WORK library, including their size, and numbers of rows and columns.
+#### dataset_exist
+```SAS
+%dataset_exist(dataset_name);
+```
+Logical test to see if a dataset exists. Used in many other macros. 
+
 #### delete_dataset
 ```SAS
 %delate_dataset(dataset_name);
