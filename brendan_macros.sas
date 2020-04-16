@@ -694,7 +694,9 @@ run;
 /*                                 RUNNING_THRU_LIST                                   */
 
 /*This macro is needed for the output of running_thru_list. You might find it useful
-otherwise*/
+otherwise
+%put The time is %print_in_mins_seconds(400) ;
+*/
 %macro print_in_mins_seconds(time);
 %local time ;
 %if %sysevalf(&time < 60 ) %then %do;
@@ -707,7 +709,6 @@ otherwise*/
 	%sysfunc( floor( %sysevalf(&time/60) ) ) minutes and %sysfunc(round(%sysfunc(mod(&time ,  60)))) seconds 
 %end;
 %mend;
-%put The time is %print_in_mins_seconds(400) ;
 
 /*
 This is very useful for processing multiple datasets using the same macro, and as it works it outputs the 
