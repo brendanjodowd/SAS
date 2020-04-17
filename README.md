@@ -22,7 +22,7 @@ Table of Contents
   * [Manipulating String Variables](#manipulating-string-variables)
       * [as_num, as_char](#as_num-as_char)
       * [extract_num](#extract_num)
-      * [crop_left, crop_right](#crop_left)
+      * [crop_left, crop_right](#crop_left-crop_right)
   * [Manipulating Words in Strings](#manipulating-words-in-strings)
       * [find_word](#find_word)
       * [first_word, last_word](#first_word-last_word)
