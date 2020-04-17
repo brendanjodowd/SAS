@@ -53,6 +53,8 @@ Table of Contents
   * [Handy abbreviations](#handy-abbreviations)
       * [proc freq](#proc-freq)
       * [proc sort](#proc-sort)
+  * [running_thru_list](#running_thru_list)
+  * [tell_me_about](#tell_me_about)
       
 
 
