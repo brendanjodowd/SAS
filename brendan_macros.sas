@@ -16,10 +16,11 @@ Generates an ascending sequence of numbers from x to y
 %mend;
 
 /*#####################################################################################*/
-/*                                 ADD_PREFIX                                          */
+/*                               ADD_PREFIX / SUFFIX                                   */
 /*
 %put %add_prefix( %seq(1,4) , p_);
 %put %add_prefix( 1 2 3 4 , p_);
+%put %add_suffix( 1 2 3 4 , _p);
 */
 
 %macro add_prefix(list , prefix , add_in = NO);
@@ -33,9 +34,14 @@ Generates an ascending sequence of numbers from x to y
 	%else %if &add_prefix_counter = %sysfunc(countw(&list)) %then %let result = &result%scan(&list , &add_prefix_counter) (in=in_%scan(&list , &add_prefix_counter)) ;
 	%else %let result = &result%scan(&list , &add_prefix_counter) (in=in_%scan(&list , &add_prefix_counter)) &prefix ;
 %end;
-
 &result
+%mend;
 
+%macro add_suffix(list , suffix );
+%local result add_prefix_counter list;
+%let list = %cmpres(&list);
+%let result = %sysfunc(tranwrd(&list , %STR( ) , %STR(&suffix )))&suffix;
+&result
 %mend;
 
 /*#####################################################################################*/
