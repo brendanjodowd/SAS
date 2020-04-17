@@ -1,4 +1,11 @@
+## How to import
+```SAS
+filename fileURL url 'https://raw.githubusercontent.com/brendanjodowd/SAS/master/brendan_macros.sas';
+%include fileURL;
+filename fileURL; 
+```
 
+***
 Table of Contents
 =================
 
