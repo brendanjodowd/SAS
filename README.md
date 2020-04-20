@@ -345,11 +345,13 @@ The list that you use could be the name of a series of datasets, it could be a l
 
 ## tell_me_about
 [tma]:README.md#tell_me_about
-
-This macro is useful for where you have a series of datasets that are similar, but may have small changes from one to the next. E.g. maybe the length of a variable changes, maybe the name of one variable changes slightly from one dataset to the next, maybe an indictor is of type 'char' in one dataset and type 'numeric' in another. 
-
-This macro creates three output datasets which compare the stucture of a series of datasets. 
+```SAS
+%tell_me_about(library= ,  filename= , list= , list_bit_after_library=YES , list_bit_after_filename=YES ,suffix= );
+```
+This macro is useful for investigating a series of inconsistently structured datasets, e.g. the length or name of a variable changes from one month to the next. It produces three tables which compare the stucture of the series of datasets. 
 * **name_record** - gives the variable names in each dataset.
 * **type_record** - gives the type (C or N) of each variable in each dataset.
 * **length_record** - gives the length of each variable in each dataset.
 
+```library``` can be left blank if datsets are in the work library.
+```filename``` is a common prefix to all datasets. 
