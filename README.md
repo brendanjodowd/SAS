@@ -346,12 +346,13 @@ The list that you use could be the name of a series of datasets, it could be a l
 ## tell_me_about
 [tma]:README.md#tell_me_about
 ```SAS
-%tell_me_about(library= ,  filename= , list= , list_bit_after_library=YES , list_bit_after_filename=YES ,suffix= );
+%tell_me_about( <some list of datasets> );
 ```
 This macro is useful for investigating a series of inconsistently structured datasets, e.g. the length or name of a variable changes from one month to the next. It produces three tables which compare the stucture of the series of datasets. 
 * **name_record** - gives the variable names in each dataset.
 * **type_record** - gives the type (C or N) of each variable in each dataset.
 * **length_record** - gives the length of each variable in each dataset.
 
-```library``` can be left blank if datsets are in the work library.
-```filename``` is a common prefix to all datasets. 
+It will name the columns in each of these three tables according to the names of the datasets that you provide. It uses filenames only provided they are different, or library names otherwise. 
+
+If you provide a single dataset, then only one table is created with all information in three columns. 
