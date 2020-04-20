@@ -310,44 +310,38 @@ Abbreviation for `proc sort`. Pass any number of variables.
 
 ## running_thru_list
 [rtl]:README.md#running_thru_list
-
-Very often you have to apply a macro over and over again on a sequence of similar datasets. The macro ```running_thru_list``` does this for you, given a list and the name of the macro that you want to apply to that list. 
-
-A nice feature is that it outputs a progress bar to the log and an estimation for what time the whole process will be finished at. 
-
-Suppose you had a list of datasets called ```SALES_2010```, ```SALES_2011```, ```SALES_2012```, etc., and you wanted to pass them through a macro you have already created called ```process_sales```.
-
-You could simply write:
 ```SAS
-%process_sales(SALES_2010);
-%process_sales(SALES_2011);
-%process_sales(SALES_2012);
-```
-A problem here is that you're hard-coding the years in. If you have lots of macros in your process flow then you'll need to specify the years in lots of places, making updates tricky.
+%running_thru_list(2010 2011 2012 2013 , some_macro);
 
-```running_thru_list``` allows you to replace this with:
+/* ...is equivalent to... */
+
+%some_macro(2010);
+%some_macro(2011);
+%some_macro(2012);
+%some_macro(2013);
+```
+Repeats a macro over a list, and produces a progress indicator to the log which includes an estimate of the remaining time. 
+
+Example of log output:
 ```SAS
-%running_thru_list(SALES_2010 SALES_2011 SALES_2012 , process_sales);
+Current time is  9:26:31
+Remaining time is 3 minutes and 50 seconds , will be finished at  9:30:21
+Duration of last run was 94 % of the average
+|#######################75%############------------|
 ```
-
-The main advantage of this is that it allows you to define the list in one location (like at the top of your process) rather than hard-coding the specific years throughout your code. E.g.
-```SAS
-%let list_of_sales_files = SALES_2010 SALES_2011 SALES_2012;
-
-%running_thru_list(&list_of_sales_files , the_first_macro);
-%running_thru_list(&list_of_sales_files , the_second_macro);
-%running_thru_list(&list_of_sales_files , the_third_macro);
-```
-You could also just define the years and derive the list of files using ```%add_prefix()```:
+The list that you use could be the name of a series of datasets, it could be a list of years, names, months, etc. A good idea is to define the list as a macro variable so that you can operate a series of macros to a list that is defined in only one location. You can use a series of years in combination with `%add_prefix()`, for example, to operate on a series of datasets. E.g.
 
 ```SAS
-%let list_of_sales_years = 2010 2011 2012;
+%let years_to_process = 2010 2011 2012 2013;
+%running_thru_list( %add_prefix( &years_to_process, SALES_ ) , some_macro);
 
-%running_thru_list(%add_prefix(&list_of_sales_years , _SALES) , the_first_macro);
-%running_thru_list(%add_prefix(&list_of_sales_years , _SALES) , the_second_macro);
-%running_thru_list(%add_prefix(&list_of_sales_years , _SALES) , the_third_macro);
+/* ...is equivalent to... */
+
+%some_macro(SALES_2010);
+%some_macro(SALES_2011);
+%some_macro(SALES_2012);
+%some_macro(SALES_2013);
 ```
-
 
 ## tell_me_about
 [tma]:README.md#tell_me_about
