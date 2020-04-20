@@ -8,6 +8,7 @@ filename fileURL;
 ## What get's returned?
 
 Some macros produce datasets or html output as a standalone statement. These are introduced with a semicolon below to indicate that they work on their own, e.g. ```show_datatsets;```
+
 Other macros return some kind of a string which is intended for use within some other kind of statement like a data step. These are not presented with a semicolon below, e.g. ```%list_vars() ```. You can usually check what they return by preceding with a ```%put``` statement.
 
 ***
