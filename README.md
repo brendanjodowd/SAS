@@ -5,6 +5,11 @@ filename fileURL url 'https://raw.githubusercontent.com/brendanjodowd/SAS/master
 filename fileURL; 
 ```
 
+## What get's returned?
+
+Some macros produce datasets or html output as a standalone statement. These are introduced with a semicolon below to indicate that they work on their own, e.g. ```show_datatsets;```
+Other macros return some kind of a string which is intended for use within some other kind of statement like a data step. These are not presented with a semicolon below, e.g. ```%list_vars() ```. You can usually check what they return by preceding with a ```%put``` statement.
+
 ***
 Table of Contents
 =================
@@ -106,7 +111,7 @@ Boolean operations on multiple lists. These are especially powerful when used in
 Returns the combined set of lists with duplicates removed.
 E.g.
 ```SAS
-%put %union(id age sales id job name id name height)
+%put %union(id age sales id job name id name height);
 ```
 ... returns: ```id age sales job name height```
 #### intersect_lists
@@ -116,7 +121,7 @@ E.g.
 Returns elements which appear in both lists. Very useful for ```keep``` and ```drop``` statements, or where a variable has an inconsistent name across datasets. 
 E.g.
 ```SAS
-%put %intersect_lists(id age sales job name , id name height)
+%put %intersect_lists(id age sales job name , id name height);
 ```
 ... returns: ```id name```
 #### left_anti_join
@@ -126,7 +131,7 @@ E.g.
 Returns the first list with the exclusion of any elements which appear in the second. Again, useful for ```keep```, ```drop``` and ```set``` statements. 
 E.g.
 ```SAS
-%put %left_anti_join(id age job name , id name height)
+%put %left_anti_join(id age job name , id name height);
 ```
 ... returns: ```age job```
 
@@ -197,7 +202,7 @@ Returns the list with ```old_word``` replaced by ```new_word```. Case insensitiv
 
 #### print_vars
 ```SAS
-%print_Vars(dataset_name)
+%print_Vars(dataset_name);
 ```
 Prints out a list of variables (inc. type and length) in a short, handy command.
 
@@ -233,7 +238,7 @@ Returns the word `variable_name` again, but with letters capitalised in the same
 
 #### max_length
 ```SAS
-%max_length(dataset_name , some_char_variable)
+%max_length(dataset_name , some_char_variable);
 ```
 This outputs a line to the log which tells you the maximum string length of the variable `some_char_variable`. Useful when you want to reduce the memory available to a variable, but you're not sure if doing so will crop strings. 
 
@@ -246,19 +251,19 @@ This outputs a line to the log which tells you the maximum string length of the 
 Produces a handy table showing all the datasets in the WORK library, including their size, and numbers of rows and columns.
 #### dataset_exist
 ```SAS
-%dataset_exist(dataset_name);
+%dataset_exist(dataset_name)
 ```
 Logical test to see if a dataset exists. Used in many other macros. 
 
 #### delete_dataset
 ```SAS
-%delate_dataset(dataset_name);
+%delete_dataset(dataset_name);
 ```
 Deletes a dataset. You can also pass a list of datasets, or use in conjunction with colon (:) to delete datasets starting with a common string.
 
 #### rename_var
 ```SAS
-%rename_var(dataset_name , old_var= , new_var=)
+%rename_var(dataset_name , old_var= , new_var=);
 ```
 A handy macro for changing variable names. Uses ```proc datasets``` and so is fairly efficient.
 #### rename_if_exist
@@ -270,7 +275,7 @@ Same as previous, but only renames if the old_var exists. Does not return an err
 ```SAS
 %add_label(dataset_name , variable_name , label , warn=YES);
 ```
-Adds a lael to a variable. WARN is set to yes by default, meaning that you get a warning in the log if the variable doesn't exist. Set it to NO if you don't want that (apply label in the case that the variable exists).
+Adds a label to a variable. WARN is set to yes by default, meaning that you get a warning in the log if the variable doesn't exist. Set it to NO if you don't want a warning (I.e., apply label in the case that the variable exists).
 #### drop_format 
 ```SAS
 %drop_format(dataset_name , variable_name);
@@ -293,7 +298,7 @@ Logical test to check if a macro variable can be used as an integer.
 ```SAS
 %is_blank(<macro variable>)
 ```
-Logical test to check if a macro variable is blank or not. Useful for creating checks within your own macros. 
+Logical test to check if a macro variable is blank or not. Useful for creating checks within your own macros. I think I got this from Lex Jansen
 
 ## Handy abbreviations
 #### proc freq
