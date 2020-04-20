@@ -837,6 +837,9 @@ This macro is used for analysing a series of inconsistent datasets
 It produces three datasets which tell you about the NAMEs of variables in each year, the
 TYPE of each variable in each year, and the LENGTH of each variable in each year.
 
+If you pass it only one dataset, it combines these three datasets into just one dataset with
+three columns.
+
 EXAMPLE:
 
 data sales_1;
@@ -866,56 +869,55 @@ Niall Horan 1 3
 ;
 run;	
 
-%tell_me_about(filename= sales_ , list = 1 2 3 );
+%tell_me_about(sales_1 sales_2 sales_3 );
 
 */
 
+%macro tell_me_about( list );
+%local step_counter_TMA list_item library_part list_length_TMA basis_for_names first_item_TMA second_item_TMA list_of_list_items;
 
+%let list_length_TMA = %sysfunc(countw(&list , %STR( )));
 
+%let basis_for_names = WORD;
 
-%macro tell_me_about(library= ,  filename= , list= , list_bit_after_library=YES , list_bit_after_filename=YES ,suffix= );
-%local step_counter_TMA list_item library_part filename_part;
+%if %eval(&list_length_TMA. >1 )%then %do;
+	%let first_item_TMA = %scan(&list, 1 , " ");
+	%let second_item_TMA = %scan(&list, 2, " ");
 
-%put Number of elements in list is %sysfunc(countw(&list , %STR( )));
-
-%do step_counter_TMA  = 1 %to %sysfunc(countw(&list , %STR( )));
-
-	%let list_item = %scan(&list, &step_counter_TMA , " ") ;
-
-	%put list_item is &list_item.;
-
-	%if &library = %STR( ) %then %let library_part = ;
-	%else %do ; 
-		%let library_part = &library;
-		%if &list_bit_after_library = YES %then %let library_part = &library_part.&list_item;
+	%if &first_item_TMA = &second_item_TMA %then %do;
+		%put These datasets are the same; %abort;
 	%end;
 
-	%let filename_part = &filename;
-	%if &list_bit_after_filename = YES %then %let filename_part = &filename_part.&list_item;
-	%if &suffix ~= %STR( ) %then %let filename_part = &filename_part.&suffix;
+	%if  %sysfunc(find(&first_item_TMA , .)) %then %do;
+		%if %scan(&first_item_TMA, 2 ) = %scan(&second_item_TMA, 2 ) %then %let basis_for_names = LIBRARY;
+		%else %let basis_for_names = DATASET;
+	%end;
+%end;
+%else %if %eval(&list_length_TMA. =1 )%then %do;
+	%if  %sysfunc(find(&list , .)) %then %do;
+		%if %scan(&first_item_TMA, 2 ) = %scan(&second_item_TMA, 2 ) %then %let basis_for_names = LIBRARY;
+		%else %let basis_for_names = DATASET;
+	%end;
+%end;
 
-	%if &library = %STR( ) %then %let dataset_to_import = &filename_part.;
-	%else %let dataset_to_import = &library_part..&filename_part.;
+
+%let list_of_list_items = ;
+
+%do step_counter_TMA  = 1 %to &list_length_TMA.;
+	%let dataset_to_import = %scan(&list, &step_counter_TMA , " ") ;
+	%if &basis_for_names = WORD %then %let list_item = &dataset_to_import;
+	%else %if &basis_for_names = LIBRARY %then %let list_item = %scan(&dataset_to_import, 1 );
+	%else %if &basis_for_names = DATASET %then %let list_item = %scan(&dataset_to_import, 2 );
+	%let list_of_list_items = &list_of_list_items &list_item;
 
 	%if %Dataset_Exist(&dataset_to_import.) = 0 %then %do;
-		%put Error: Dataset &dataset_to_import. does not exist.;
-		%put Check if list_bit_after_library or list_bit_after_filename should be set to "NO";
-		%put If you are working out of the WORK library, you can run this macro without the library statement at all;
-		%abort;
+		%put Error: Dataset &dataset_to_import. does not exist.;		%abort;
 	%end;
-
-	%put Will check dataset: &dataset_to_import.;
- 
-	%if  %sysfunc(find(&list_item , .)) %then %let list_item = %scan(&list_item, 2 ) ;
-	%put list_item is &list_item.;
 
 	proc contents data = &dataset_to_import. 
 	out = format_record_&list_item. (keep=name type length nobs) 
 	noprint	;
 	run; 
-	%put proc contents went ok;
-	%put dataset gonna be format_record_&list_item. ;
-	%put variable gonna be name_&list_item. ;
 	data format_record_&list_item.;
 		length set $50;
 		set format_record_&list_item.;
@@ -926,7 +928,6 @@ run;
 		length_&list_item. = length;
 		set = "&list_item." ;
 	run;
-	%put format_record went ok;
 	proc sort data=format_record_&list_item. ; by name; run;
 %end;
 
@@ -937,15 +938,20 @@ Each row is roughly the same, but as a precaution we take the maximum NOBS
 The next few steps take the 
 */
 data all_num_obs;
-	set format_record_: (keep=set nobs);
+	set %add_prefix(&list_of_list_items , format_record_ )  (keep=set nobs);
 run;
 proc sort data=all_num_obs ; by set descending nobs; run;
-data all_num_obs (drop=set nobs rename=(char_set = set char_obs=nobs)); 
-	length char_set $32. char_obs $32.;
-	set all_num_obs; by set descending nobs; if first.set; 
-	char_set = strip(put(set, 8.));
+
+
+data all_num_obs (drop= nobs rename=( char_obs=nobs)); 
+	length char_obs $32.;
+	set all_num_obs; 
+	by set descending nobs; 
+	if first.set; 
 	char_obs = strip(put(nobs, 8.));
 run;
+
+
 /*At this stage you just have columns of set and nobs*/
 proc transpose data=all_num_obs out=all_num_obs (drop=set) name=set prefix=name_;
 id set;
@@ -960,17 +966,27 @@ run;
 
 /*Now we make the individual records. The first one has nobs also*/
 data name_record ;
-	merge all_num_obs format_record_: (keep=name name_:);
+	merge all_num_obs %add_keep( %add_prefix(&list_of_list_items , format_record_ ) , name name_:) ; 
 	by name;
 run;
 data type_record ;
-	merge format_record_: (keep=name type_:);
+	merge %add_keep( %add_prefix(&list_of_list_items , format_record_ ) , name type_:) ; 
 	by name;
 run;
 data length_record ;
-	merge format_record_: (keep=name length_:);
+	merge %add_keep( %add_prefix(&list_of_list_items , format_record_ ) , name length_:) ; 
 	by name;
 run;
-%delete_dataset(format_record_: all_num_obs);
+%delete_dataset(%add_prefix(&list_of_list_items , format_record_ ) all_num_obs);
+
+%if %eval(&list_length_TMA. =1 )%then %do;
+	data dataset_format;
+		merge 
+				type_record (rename= %remove_word(%list_vars(type_record),name)=Type) 
+				length_record (rename= %remove_word(%list_vars(length_record),name)=Length);
+		by name;
+	run;
+	%delete_dataset(name_record type_record length_record);
+%end;
 
 %mend;
