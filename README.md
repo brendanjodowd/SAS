@@ -61,6 +61,11 @@ Table of Contents
   * [Handy abbreviations](#handy-abbreviations)
       * [proc freq](#proc-freq)
       * [proc sort](#proc-sort)
+  * [Checking counts and duplicates](#checking-counts-and-duplicates)
+      * [unique](#unique)
+      * [check_duplicates](#check_duplicates)
+      * [abort_if_duplicates](#abort_if_duplicates)
+      * [abort_unequal_duplicates](#abort_unequal_duplicates)
   * [running_thru_list](#running_thru_list)
   * [tell_me_about](#tell_me_about)
       
@@ -329,6 +334,32 @@ Abbreviation for `proc freq`. Displays only counts when a 2D table is requested 
 %ps(dataset_name , var_1 var_2);
 ```
 Abbreviation for `proc sort`. Pass any number of variables. 
+
+## Checking counts and duplicates
+### unique
+```SAS
+%unique(dataset_name , variable_name);
+```
+Based on the `unique()` function in R. Outputs frequency counts for each `variable_name` to the log. Also states number of unique entries for `variable_name`. Does not produce frequency counts if there more than 100 unique values. 
+
+### check_duplicates
+```SAS
+%check_duplicates(dataset_name , variable_name);
+```
+This outputs a two-column table to log. It gives a frequency count OF a frequency count for `variable_name`. Why would you want this? Well you can see easily whether every value for `variable_name` appears once, for example, or you can see whether every value for `variable_name` appears ten times. I find it useful when applied to some kind of id variable, and I expect each id to appear exactly n times. 
+
+### abort_if_duplicates
+```SAS
+%abort_if_duplicates(dataset_name , variable_name);
+```
+This returns `%abort();` if any value for `variable_name` appears more than once. A useful failsafe.
+
+### abort_unequal_duplicates
+```SAS
+%abort_if_duplicates(dataset_name , variable_name);
+```
+This returns `%abort();` if a frequency count over `variable_name` returns more than one unique frequency. A useful failsafe if you're building a dataset that should have exactly ten entries (for example) for each unique value of `variable_name`. 
+
 
 ## running_thru_list
 [rtl]:README.md#running_thru_list
