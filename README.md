@@ -1,11 +1,12 @@
-## How to import
+## Preface
+### How to import
 ```SAS
 filename fileURL url 'https://raw.githubusercontent.com/brendanjodowd/SAS/master/brendan_macros.sas';
 %include fileURL;
 filename fileURL; 
 ```
 
-## What get's returned?
+### What get's returned?
 
 Some macros produce datasets or html output as a standalone statement. These are introduced with a semicolon below to indicate that they work on their own, e.g. ```show_datatsets;```
 
