@@ -157,7 +157,7 @@ A stronger version of ```%as_num()```, extracting a number from among other char
 ```SAS
  code = %extract_num( "(2) Arts and Humanities" )
 ```
-...gives code a value of 2.
+...gives ```code``` a value of 2.
 
 #### crop_left crop_right
 ```SAS
