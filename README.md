@@ -26,6 +26,7 @@ Table of Contents
       * [union](#union)
       * [intersect_lists](#intersect_lists)
       * [left_anti_join](#left_anti_join)
+      * [pairwise_join](#pairwise_join)
   * [Manipulating String Variables](#manipulating-string-variables)
       * [as_num, as_char](#as_num-as_char)
       * [extract_num](#extract_num)
@@ -136,6 +137,16 @@ E.g.
 %put %left_anti_join(id age job name , id name height);
 ```
 ... returns: ```age job```
+
+### pairwise_join
+```SAS
+%pairwise_join(<first list> , <second list> , sep=)
+```
+Returns the lists joined together in a pairwise fashion, with each pair separated by ```sep``` (null by default). Lists must be the same length. 
+E.g. ```%pairwise_join(hand foot tree , bag ball house)``` returns ```handbag football treehouse```.
+
+And ```%pairwise_join(library_2010 library_2012 , file_2010 file_2012 , sep=. )``` returns ```library_2010.file2010 library_2012.file_2012```.
+
 
 ## Manipulating String Variables
 ### as_num as_char
