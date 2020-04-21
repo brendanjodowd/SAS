@@ -27,7 +27,7 @@ Table of Contents
       * [intersect_lists](#intersect_lists)
       * [left_anti_join](#left_anti_join)
       * [pairwise_join](#pairwise_join)
-  * [Manipulating Words in Lists](#manipulating-words-in-strings)
+  * [Manipulating Words in Lists](#manipulating-words-in-lists)
       * [find_word](#find_word)
       * [first_word, last_word](#first_word-last_word)
       * [words_beginning_with, -ending -containg](#words_beginning_with)
