@@ -12,6 +12,10 @@ Some macros produce datasets or html output as a standalone statement. These are
 
 Other macros return some kind of a string which is intended for use as code within some other kind of statement like a data step. These are not presented with a semicolon below, e.g. ```%list_vars() ```. You can usually check what they return by preceding with a ```%put``` statement.
 
+### What do you mean by a 'list'?
+
+A list here refers to a sequence of words that will be used as code. It could be a list of datasets, variables, years, etc. Macros designed for use with lists are useful when you building a series of datasets or when you're trying to write flexible code. They are not designed for working with character type variables, since they will probably pass the name of the variable rather than the string contained within it.
+
 ***
 Table of Contents
 =================
