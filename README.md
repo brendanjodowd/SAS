@@ -66,12 +66,12 @@ Table of Contents
 
 
 ## Generating Lists
-#### seq
+### seq
 ```SAS
 %seq(x, y)
 ```
 Generates an ascending list from one number to another.
-#### add_prefix
+### add_prefix
 ```SAS
 %add_prefix(<some list here>, prefix)
 ```
@@ -81,19 +81,19 @@ E.g.
 %put %add_prefix(2010 2011 2012, accounts_);
 ```
 ... returns: ```accounts_2010 accounts_2011 accounts_2012```
-#### list_vars
+### list_vars
 ```SAS
 %list_vars(some_dataset)
 %list_num_vars(some_dataset)
 %list_char_vars(some_dataset)
 ```
 Returns a list of variables in a dataset that you might use as part of your code. You might choose to manipulate the string that gets returned, for example by adding or removing certain words. Can be useful in certain proc sql commands where the full list of variables is required. 
-#### add_commas
+### add_commas
 ```SAS
 %add_commas(<some list here>)
 ```
 Returns a list but with commas between each word. Handy for proc sql and certain other functions.
-#### add_keep
+### add_keep
 ```SAS
 %add_keep(<some list here> , var_1 var_2)
 ```
@@ -138,7 +138,7 @@ E.g.
 ... returns: ```age job```
 
 ## Manipulating String Variables
-#### as_num as_char
+### as_num as_char
 ```SAS
 %as_num( <some character variable> )
 %as_char( <some numeric variable> )
@@ -149,7 +149,7 @@ E.g.
 /*inside data step*/
     numeric_age = %as_num(character_age);
 ```
-#### extract_num
+### extract_num
 ```SAS
 %extract_num( <some string with a number in it> )
 ```
@@ -159,7 +159,7 @@ A stronger version of ```%as_num()```, extracting a number from among other char
 ```
 ...gives ```code``` a value of 2.
 
-#### crop_left crop_right
+### crop_left crop_right
 ```SAS
 %crop_left( string_variable , "phrase" )
 %crop_right( string_variable , "phrase" )
@@ -169,19 +169,19 @@ Similar to LEFT() and RIGHT() in Excel. `crop_left` returns a string up to (and 
 
 ## Manipulating Words in Strings
 Tools for querying and adjusting lists.
-#### find_word
+### find_word
 ```SAS
 %find_word( <some list> , word)
 ```
 Returns ```n```, where ```word``` is the nth word in ```<some list>```, and 0 if ```word``` does not appear in ```<some list>```. Differs from ```FINDW()``` which returns character position. Finds whole words and is case insensitive.
 
-#### first_word last_word
+### first_word last_word
 ```SAS
 %first_word(<some list>)
 %last_word(<some list>)
 ```
 Simply returns the first or last word in a list. 
-#### words_beginning_with 
+### words_beginning_with 
 ```SAS
 %words_beginning_with(<some list> , phrase)
 %words_ending_with(<some list> , phrase)
@@ -193,12 +193,12 @@ Returns all words from a list which begin/end/contain ```phrase```. Useful for d
 %remove_word(<some list> , word)
 ```
 Returns the list with ```word``` removed. Case insensitive and matches whole word only. 
-#### remove_nth_word
+### remove_nth_word
 ```SAS
 %remove_nth_word(<some list> , n)
 ```
 Returns the list with the nth word removed. 
-#### replace_word
+### replace_word
 ```SAS
 %replace_word(<some list> , old_word , new_word)
 ```
@@ -206,43 +206,43 @@ Returns the list with ```old_word``` replaced by ```new_word```. Case insensitiv
 
 ## Checking variables in datasets
 
-#### print_vars
+### print_vars
 ```SAS
 %print_Vars(dataset_name);
 ```
 Prints out a list of variables (inc. type and length) in a short, handy command.
 
-#### var_exist
+### var_exist
 ```SAS
 %var_exist(dataset_name , variable_name)
 ```
 Returns '1' or '0' depending on whether `variable_name` appears in `dataset_name`. Useful for case-based handling of datasets. Also used in some other macros. 
 
-#### var_type
+### var_type
 ```SAS
 %var_type(dataset_name , variable_name)
 ```
 Returns 'C' or 'N' depending on whether `variable_name` is of type character or numeric. Useful for case-based handling of datasets.
 
-#### var_length
+### var_length
 ```SAS
 %var_type(dataset_name , variable_name)
 ```
 Returns (memory) length of `variable_name`. Useful for case-based handling of datasets.
 
-#### var_fmt
+### var_fmt
 ```SAS
 %var_fmt(dataset_name , variable_name)
 ```
 Returns the format of `variable_name` in `dataset_name`.
 
-#### right_case
+### right_case
 ```SAS
 %right_case(dataset_name , variable_name)
 ```
 Returns the word `variable_name` again, but with letters capitalised in the same way that they are in the dataset. Used within some other macros to ensure that case-insensitive inputs do not alter the capitalisation of variable names as they are stored. 
 
-#### max_length
+### max_length
 ```SAS
 %max_length(dataset_name , some_char_variable);
 ```
@@ -250,70 +250,70 @@ This outputs a line to the log which tells you the maximum string length of the 
 
 ## Managing Datasets and Variables
 
-#### show_datasets
+### show_datasets
 ```SAS
 %show_datasets;
 ```
 Produces a handy table showing all the datasets in the WORK library, including their size, and numbers of rows and columns.
-#### dataset_exist
+### dataset_exist
 ```SAS
 %dataset_exist(dataset_name)
 ```
 Logical test to see if a dataset exists. Used in many other macros. 
 
-#### delete_dataset
+### delete_dataset
 ```SAS
 %delete_dataset(dataset_name);
 ```
 Deletes a dataset. You can also pass a list of datasets, or use in conjunction with colon (:) to delete datasets starting with a common string.
 
-#### rename_var
+### rename_var
 ```SAS
 %rename_var(dataset_name , old_var= , new_var=);
 ```
 A handy macro for changing variable names. Uses ```proc datasets``` and so is fairly efficient.
-#### rename_if_exist
+### rename_if_exist
 ```SAS
 %rename_if_exist(dataset_name , old_var= , new_var=);
 ```
 Same as previous, but only renames if the old_var exists. Does not return an error if it doesn't exist. Handy if you're dealing with an inconsistent series of datasets. 
-#### add_label
+### add_label
 ```SAS
 %add_label(dataset_name , variable_name , label , warn=YES);
 ```
 Adds a label to a variable. WARN is set to yes by default, meaning that you get a warning in the log if the variable doesn't exist. Set it to NO if you don't want a warning (I.e., apply label in the case that the variable exists).
-#### drop_format 
+### drop_format 
 ```SAS
 %drop_format(dataset_name , variable_name);
 ```
 Removes a format from a variable. Handy if datasets come in with a weird format. 
 
 ## Managing macros and macro variables
-#### show_macros
+### show_macros
 ```SAS
 %show_macros;
 ```
 Prints a list of all the macros that have been defined so far. 
 
-#### is_int
+### is_int
 ```SAS
 %is_int(<macro variable>)
 ```
 Logical test to check if a macro variable can be used as an integer. 
-#### is_blank
+### is_blank
 ```SAS
 %is_blank(<macro variable>)
 ```
 Logical test to check if a macro variable is blank or not. Useful for creating checks within your own macros. I think I got this from Lex Jansen
 
 ## Handy abbreviations
-#### proc freq
+### proc freq
 ```SAS
 %pf(dataset_name , var_1);
 %pf(dataset_name , var_1*var_2);
 ```
 Abbreviation for `proc freq`. Displays only counts when a 2D table is requested (`nocol norow nopercent` options).
-#### proc sort
+### proc sort
 ```SAS
 %ps(dataset_name , var_1 var_2);
 ```
