@@ -27,17 +27,17 @@ Table of Contents
       * [intersect_lists](#intersect_lists)
       * [left_anti_join](#left_anti_join)
       * [pairwise_join](#pairwise_join)
-  * [Manipulating String Variables](#manipulating-string-variables)
-      * [as_num, as_char](#as_num-as_char)
-      * [extract_num](#extract_num)
-      * [crop_left, crop_right](#crop_left-crop_right)
-  * [Manipulating Words in Strings](#manipulating-words-in-strings)
+  * [Manipulating Words in Lists](#manipulating-words-in-strings)
       * [find_word](#find_word)
       * [first_word, last_word](#first_word-last_word)
       * [words_beginning_with, -ending -containg](#words_beginning_with)
       * [remove_word](#remove_word)
       * [remove_nth_word](#remove_nth_word)
       * [replace_word](#replace_word)
+  * [Manipulating String Variables](#manipulating-string-variables)
+      * [as_num, as_char](#as_num-as_char)
+      * [extract_num](#extract_num)
+      * [crop_left, crop_right](#crop_left-crop_right)
   * [Checking variables in datasets](#checking-variables-in-datasets)
       * [print_vars](#print_vars)
       * [var_exist](#var_exist)
@@ -153,37 +153,8 @@ E.g. ```%pairwise_join(hand foot tree , bag ball house)``` returns ```handbag fo
 And ```%pairwise_join(library_2010 library_2012 , file_2010 file_2012 , sep=. )``` returns ```library_2010.file2010 library_2012.file_2012```.
 
 
-## Manipulating String Variables
-### as_num as_char
-```SAS
-%as_num( <some character variable> )
-%as_char( <some numeric variable> )
-```
-A neat little expression for quickly making a new numeric/character variable using a character/numeric variable as input. Negates need for put/input in majority of cases. 
-E.g.
-```SAS
-/*inside data step*/
-    numeric_age = %as_num(character_age);
-```
-### extract_num
-```SAS
-%extract_num( <some string with a number in it> )
-```
-A stronger version of ```%as_num()```, extracting a number from among other characters in a variable. E.g.:
-```SAS
- code = %extract_num( "(2) Arts and Humanities" )
-```
-...gives ```code``` a value of 2.
 
-### crop_left crop_right
-```SAS
-%crop_left( string_variable , "phrase" )
-%crop_right( string_variable , "phrase" )
-```
-Similar to LEFT() and RIGHT() in Excel. `crop_left` returns a string up to (and excluding) the first instance of `"phrase"` in `string_variable`. 
-`crop_right` returns the string after the first appearance of `"phrase"`. 
-
-## Manipulating Words in Strings
+## Manipulating Words in Lists
 Tools for querying and adjusting lists.
 ### find_word
 ```SAS
@@ -219,6 +190,37 @@ Returns the list with the nth word removed.
 %replace_word(<some list> , old_word , new_word)
 ```
 Returns the list with ```old_word``` replaced by ```new_word```. Case insensitive and matches whole word only.
+
+## Manipulating String Variables
+### as_num as_char
+```SAS
+%as_num( <some character variable> )
+%as_char( <some numeric variable> )
+```
+A neat little expression for quickly making a new numeric/character variable using a character/numeric variable as input. Negates need for put/input in majority of cases. 
+E.g.
+```SAS
+/*inside data step*/
+    numeric_age = %as_num(character_age);
+```
+### extract_num
+```SAS
+%extract_num( <some string with a number in it> )
+```
+A stronger version of ```%as_num()```, extracting a number from among other characters in a variable. E.g.:
+```SAS
+ code = %extract_num( "(2) Arts and Humanities" )
+```
+...gives ```code``` a value of 2.
+
+### crop_left crop_right
+```SAS
+%crop_left( string_variable , "phrase" )
+%crop_right( string_variable , "phrase" )
+```
+Similar to LEFT() and RIGHT() in Excel. `crop_left` returns a string up to (and excluding) the first instance of `"phrase"` in `string_variable`. 
+`crop_right` returns the string after the first appearance of `"phrase"`. 
+
 
 ## Checking variables in datasets
 
