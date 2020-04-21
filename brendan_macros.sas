@@ -210,6 +210,13 @@ input(strip( compress(&number , , "dk")  ) , 8.)
 %mend;
 
 /*#####################################################################################*/
+/*                                      SQUISH                                         */
+%macro squish(string);
+strip(compbl(&string))
+%mend;
+
+
+/*#####################################################################################*/
 /*                            CROP_LEFT AND CROP_RIGHT                                 */
 /*
 Like in Excel. Designed to work in data steps, not for macro variables. 
