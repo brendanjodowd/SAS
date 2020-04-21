@@ -138,10 +138,10 @@ E.g.
 ... returns: ```age job```
 
 ## Manipulating String Variables
-#### as_char as_num
+#### as_num as_char
 ```SAS
-%as_char( <some numeric variable> )
 %as_num( <some character variable> )
+%as_char( <some numeric variable> )
 ```
 A neat little expression for quickly making a new numeric/character variable using a character/numeric variable as input. Negates need for put/input in majority of cases. 
 E.g.
@@ -153,7 +153,11 @@ E.g.
 ```SAS
 %extract_num( <some string with a number in it> )
 ```
-Extract a number which is within a string to make a new variable. Useful in strings that contain a numeric code alongside some text. 
+A stronger version of ```%as_num()```, extracting a number from among other characters in a variable. E.g.:
+```SAS
+ code = %extract_num( "(2) Arts and Humanities" )
+```
+...gives code a value of 2.
 
 #### crop_left crop_right
 ```SAS
