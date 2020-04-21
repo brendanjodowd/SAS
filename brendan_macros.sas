@@ -714,6 +714,152 @@ run;
 %mend;
 
 
+
+
+/*#####################################################################################*/
+/*                                   UNIQUE                                            */
+/*
+I wanted something similar to the unique function in R, which quickly shows the unique 
+entries for a particular variable. It also shows the number of each entry.
+In some ways it is like a proc freq, but the output is to the log and it explicity 
+states the number of unique entries. 
+I find this handy for something like Male/Female, where you can't be sure initially if 
+there are no missing values, or NA. 
+It does not produce the breakdown with numbers for each entry type if there are more than
+100 unique entries.
+
+%unique(sashelp.cars , make);
+*/
+
+%macro unique(dataset , var);
+%local nobs dsnid unique_counter;
+%let dsnid = %sysfunc(open(&dataset));
+%if &dsnid %then %do;
+    %let rc  =%sysfunc(close(&dsnid));
+	proc summary data= &dataset nway;
+		class &var;
+		output out=unique_vars (drop=_TYPE_ rename=(_FREQ_=count));
+	run;
+	%let dsnid = %sysfunc(open(unique_vars));
+	%let nobs=%sysfunc(attrn(&dsnid,nlobs));
+	%let rc  =%sysfunc(close(&dsnid));
+
+	%put Number of unique entries: &nobs;
+	%if &nobs<=100 %then %do;
+		data unique_vars;
+			set unique_vars;
+			put &var count;
+		run;
+	%end;
+	%delete_dataset(unique_vars);
+%end;
+%else %do; %put Unable to open &dsn - %sysfunc(sysmsg()); %end;
+%mend;
+
+/*#####################################################################################*/
+/*                                CHECK_DUPLICATES                                     */
+/*
+This tells you the number of unique entries which have a particular number of appearances
+in the dataset. Outputs to the log E.g. in the column "Bob Joe Andy Tim Paul Paul" the 
+output would be:
+Occurrences - Number
+1 4
+2 1
+Because there were four unique entries which had only one occurrence, and one unique entry 
+which had 2 occurrences. 
+
+Have a look at the following examples:
+%check_duplicates(sashelp.baseball , name);
+%check_duplicates(sashelp.baseball , team);
+%check_duplicates(sashelp.iris , species);
+*/
+
+%macro check_duplicates(dataset , var_name);
+%put Dataset: &dataset;
+proc sql;
+create table num_of_occurrences_ds as select count(Count) as Count, Count as Occurrences  from 
+	(select count(&var_name) as Count  from &dataset group by &var_name) 
+	group by Count
+;
+quit;
+
+data num_of_occurrences_ds;
+	set num_of_occurrences_ds nobs=total;
+	if total=1 then do;
+		if Occurrences = 1 then put "All " Count "unique entries appeared once only" ;
+		else put  "All " Count "unique entries appeared on " Occurrences "occasions only" ;
+	end;
+	else if _n_ <=25 then do;
+		if _n_ = 1 then put "Occurrences - Number";
+		put Occurrences Count ;
+	end;
+	else do;
+		put "There were more than 25 different frequencies for this variable.";
+		stop;
+	end;
+run;
+%delete_dataset(num_of_occurrences_ds);
+%mend;
+
+
+
+/*#####################################################################################*/
+/*                                ABORT_IF_DUPLICATES                                     */
+/*
+Checks for duplicates of a certain variable, returns error if so.
+
+%abort_if_duplicates(sashelp.baseball , name);
+%abort_if_duplicates(sashelp.baseball , team);
+%abort_if_duplicates(sashelp.iris , species);
+*/
+
+%macro abort_if_duplicates(dataset , var_name);
+%local This_should_be_1;
+proc sql noprint;    
+	select max(Count) into  :This_should_be_1 from
+	(select count(&var_name) as Count from &dataset group by &var_name)
+	;
+quit;
+%if %eval( &This_should_be_1 > 1) %then %do;
+	%put Error: There are some duplicates of &var_name in &dataset;
+	%abort;
+%end;
+%else %do;
+	%put Report: There were no duplicates of &var_name in &dataset;
+%end;
+%mend;
+
+
+/*#####################################################################################*/
+/*                                ABORT_UNEQUAL_DUPLICATES                                     */
+/*
+Checks if there are differing number of duplicates of a certain variable, returns error if so.
+
+%abort_unequal_duplicates(sashelp.baseball , name);
+%abort_unequal_duplicates(sashelp.baseball , team);
+%abort_unequal_duplicates(sashelp.iris , species);
+*/
+
+%macro abort_unequal_duplicates(dataset , var_name);
+%local max_counter min_counter;
+proc sql noprint;    
+	select max(Count) , min(Count) into  :max_counter ,   :min_counter from
+	(select count(&var_name) as Count from &dataset group by &var_name)
+	;
+quit;
+%let max_counter = %CMPRES(&max_counter);
+%let min_counter = %CMPRES(&min_counter);
+%put min and max are: &min_counter &max_counter;
+%if %eval( &max_counter ~= &min_counter) %then %do;
+	%put Error: There are differing numbers of duplicates of &var_name in &dataset;
+	%abort;
+%end;
+%else %do;
+	%put Report: Variable &var_name is duplicated the same number of times (&max_counter) in &dataset;
+%end;
+%mend;
+
+
 /*#####################################################################################*/
 /*                                 RUNNING_THRU_LIST                                   */
 
