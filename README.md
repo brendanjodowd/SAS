@@ -106,7 +106,7 @@ set %add_keep(team_1 team_2 team_3 , name age );
 
 ## Joining lists
 Boolean operations on multiple lists. These are especially powerful when used in combination with ```%list_vars()``` and other macros for modifying lists.
-#### union
+### union
 ```SAS
 %union(<first list> <second list> <third list>)
 ```
@@ -116,7 +116,7 @@ E.g.
 %put %union(id age sales id job name id name height);
 ```
 ... returns: ```id age sales job name height```
-#### intersect_lists
+### intersect_lists
 ```SAS
 %intersect_lists(<first list> , <second list>)
 ```
@@ -126,7 +126,7 @@ E.g.
 %put %intersect_lists(id age sales job name , id name height);
 ```
 ... returns: ```id name```
-#### left_anti_join
+### left_anti_join
 ```SAS
 %left_anti_join(<first list> , <second list>)
 ```
