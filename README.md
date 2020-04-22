@@ -41,7 +41,7 @@ Table of Contents
   * [Manipulating String Variables](#manipulating-string-variables)
       * [as_num, as_char](#as_num-as_char)
       * [extract_num](#extract_num)
-      * [squish](*squish)
+      * [squish](#squish)
       * [crop_left, crop_right](#crop_left-crop_right)
   * [Checking variables in datasets](#checking-variables-in-datasets)
       * [print_vars](#print_vars)
