@@ -41,6 +41,7 @@ Table of Contents
   * [Manipulating String Variables](#manipulating-string-variables)
       * [as_num, as_char](#as_num-as_char)
       * [extract_num](#extract_num)
+      * [squish](*squish)
       * [crop_left, crop_right](#crop_left-crop_right)
   * [Checking variables in datasets](#checking-variables-in-datasets)
       * [print_vars](#print_vars)
@@ -216,6 +217,12 @@ A stronger version of ```%as_num()```, extracting a number from among other char
  code = %extract_num( "(2) Arts and Humanities" )
 ```
 ...gives ```code``` a value of 2.
+
+### squish
+```SAS
+%squish( <some string variable> )
+```
+Removes leading and trailing blanks, and replaces multiple spaces with a single space. Inspired by `str_squish()` in the stringr package for R.
 
 ### crop_left crop_right
 ```SAS
