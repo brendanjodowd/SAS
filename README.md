@@ -6,7 +6,7 @@ filename fileURL url 'https://raw.githubusercontent.com/brendanjodowd/SAS/master
 filename fileURL; 
 ```
 
-### What get's returned?
+### What gets returned?
 
 Some macros produce datasets or html output as a standalone statement. These are introduced with a semicolon below to indicate that they work on their own, e.g. ```show_datatsets;```
 
