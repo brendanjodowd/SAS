@@ -370,12 +370,6 @@ Hasn't been thoroughly tested.
 %put %remove_nth_word(I have a dog And a cat , 5);
 */
 %macro remove_nth_word(sentence , n);
-%put %eval(&n-1);
-%put %seq(1,%eval(&n-1));
-%put %add_prefix( 1 2 3 4 , $ );
-%put %add_prefix( %seq(1,%eval(&n-1)), $ );
-%put %sysfunc(repeat((\w+)\s+, &n-1));
-%put %add_prefix( %seq(1,&n-1), $ );
 %sysfunc(prxchange(s/%sysfunc(repeat((\w+)\s+, &n-1))/%add_prefix( %seq(1,%eval(&n-1)), $ ) /,1, &sentence))
 %mend;
 
