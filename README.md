@@ -56,7 +56,6 @@ Table of Contents
       * [dataset_exist](#dataset_exist)
       * [delete_dataset](#delete_dataset)
       * [rename_var](#rename_var)
-      * [rename_if_exist](#rename_if_exist)
       * [add_label](#add_label)
       * [drop_format](#drop_format)
   * [Managing macros and macro variables](#managing-macros-and-macro-variables)
@@ -298,14 +297,10 @@ Deletes a dataset. You can also pass a list of datasets, or use in conjunction w
 
 ### rename_var
 ```SAS
-%rename_var(dataset_name , old_var= , new_var=);
+%rename_var(dataset_name , old_var= , new_var= , warn=YES);
 ```
-A handy macro for changing variable names. Uses ```proc datasets``` and so is fairly efficient.
-### rename_if_exist
-```SAS
-%rename_if_exist(dataset_name , old_var= , new_var=);
-```
-Same as previous, but only renames if the old_var exists. Does not return an error if it doesn't exist. Handy if you're dealing with an inconsistent series of datasets. 
+A handy macro for changing variable names. Uses ```proc datasets``` and so is fairly efficient. Includes and optional variable, `WARN`. If set to YES (default), you get a warning in the log if `old_var` does not exist. Or you can set `warn` to NO, which will make no changes to the dataset and will generate no warning, and this is useful for managing inconsistent datasets. 
+
 ### add_label
 ```SAS
 %add_label(dataset_name , variable_name , label , warn=YES);
