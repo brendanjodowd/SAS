@@ -269,7 +269,7 @@ Returns the format of `variable_name` in `dataset_name`.
 ```SAS
 %right_case(dataset_name , variable_name)
 ```
-Returns the word `variable_name` again, but with letters capitalised in the same way that they are in the dataset. Used within some other macros to ensure that case-insensitive inputs do not alter the capitalisation of variable names as they are stored. 
+Returns the word `variable_name` again, but with letters capitalised in the same way that they are in the dataset. Used within some other macros to ensure that case-insensitive inputs do not alter the original capitalisation of variable names. 
 
 ### max_length
 ```SAS
