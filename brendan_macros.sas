@@ -571,6 +571,34 @@ run;
 %rename_var(something , old_var=Make , new_var = Make_of_car );
 */
 
+%macro rename_var(ds , old_var= , new_var= , warn=YES);
+%if %dataset_exist(&ds)=0 %then %do;
+	%put ERROR: The dataset passed to the rename macro does not exist: &ds ;
+	%abort;
+%end;
+%if %var_exist(&ds , &new_var) %then %do;
+	%put ERROR: You are trying to give a variable a name which is already used in this dataset ;
+	%abort;
+%end;
+%if &warn = YES and %var_exist(&ds , &old_var)=0 %then %do;
+	%put WARNING: The variable &old_var does not exist in the dataset &ds;
+	%put No renaming will be carried out. ;
+	/*Optional abort statement here, or you could change WARNING to ERROR above.*/
+	/*%
+	abort;
+	*/
+%end;
+%else %if %var_exist(&ds , &old_var) %then %do;
+	PROC DATASETS LIBRARY=work nolist;
+	MODIFY &ds ;
+	RENAME &old_var=&new_var;
+	RUN;
+%end;
+%else %do;
+	%put NOTE: The variable &old_var does not exist in the dataset &ds so nothing will be renamed;
+%end;
+%mend; 
+
 
 /*#####################################################################################*/
 /*                                 ADD_LABEL                                           */
