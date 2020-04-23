@@ -299,7 +299,7 @@ Deletes a dataset. You can also pass a list of datasets, or use in conjunction w
 ```SAS
 %rename_var(dataset_name , old_var= , new_var= , warn=YES);
 ```
-A handy macro for changing variable names. Uses ```proc datasets``` and so is fairly efficient. Includes and optional variable, `WARN`. If set to YES (default), you get a warning in the log if `old_var` does not exist. Or you can set `warn` to NO, which will make no changes to the dataset and will generate no warning, and this is useful for managing inconsistent datasets. 
+A handy macro for changing variable names. Uses ```proc datasets``` and so is fairly efficient. Includes an optional variable, `WARN`. If set to YES (default), you get a warning in the log if `old_var` does not exist. Or you can set `warn` to NO, which will make no changes to the dataset and will generate no warning, and this is useful for managing inconsistent datasets. 
 
 ### add_label
 ```SAS
