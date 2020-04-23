@@ -576,7 +576,7 @@ run;
 	%abort;
 %end;
 %if &warn = YES and %var_exist(&ds , &old_var)=0 %then %do;
-	%put WARNING: The variable %old_var does not exist in the dataset &ds;
+	%put WARNING: The variable &old_var does not exist in the dataset &ds;
 	%put No renaming will be carried out.
 	/*Optional abort statement here, or you could change WARNING to ERROR above.*/
 	/*%
@@ -590,7 +590,7 @@ run;
 	RUN;
 %end;
 %else do;
-	%put NOTE: The variable %old_var does not exist in the dataset &ds so nothing will be renamed;
+	%put NOTE: The variable &old_var does not exist in the dataset &ds so nothing will be renamed;
 %end;
 %mend;
 
