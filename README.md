@@ -54,6 +54,7 @@ Table of Contents
   * [Managing Datasets and Variables](#managing-datasets-and-variables)
       * [show_datasets](#show_datasets)
       * [dataset_exist](#dataset_exist)
+      * [datasets_exist](#datasets_exist)
       * [delete_dataset](#delete_dataset)
       * [rename_var](#rename_var)
       * [add_label](#add_label)
@@ -288,6 +289,14 @@ Produces a handy table showing all the datasets in the WORK library, including t
 %dataset_exist(dataset_name)
 ```
 Logical test to see if a dataset exists. Used in many other macros. 
+
+### datasets_exist
+```SAS
+%datasets_exist( <a list of dataset names> )
+```
+Passed a list of dataset names, returns a list of those which actually exist. 
+
+E.g. `%datasets_exist(sashelp.cars something_else sashelp.baseball)` should return `sashelp.cars sashelp.baseball`.
 
 ### delete_dataset
 ```SAS
