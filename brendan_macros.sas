@@ -548,6 +548,23 @@ Returns 1 or 0 depending on whether the dataset exists
 %mend ;
 
 /*#####################################################################################*/
+/*                                 DATASETS_EXIST                                       */
+/*
+Pass a list of datasets, returns only those which actually exist. 
+Note that it returns a list and is not a logical test.
+
+%put %datasets_exist(sashelp.cars somthing_else);
+*/
+%macro datasets_exist(list_of_datasets);
+%local return_list;
+%let return_list = ;
+%do i = 1 %to %sysfunc(countw(&list_of_datasets , , s));
+	%if %dataset_exist( %scan(&list_of_datasets ,&i, , s) ) %then %let return_list = &return_list. %scan(&list_of_datasets ,&i, , s);
+%end;
+&return_list.
+%mend;
+
+/*#####################################################################################*/
 /*                                 DELETE_DATASET                                      */
 /*
 %delete_dataset(data_1 data_2 );
