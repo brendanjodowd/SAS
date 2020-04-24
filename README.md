@@ -294,7 +294,7 @@ Logical test to see if a dataset exists. Used in many other macros.
 ```SAS
 %datasets_exist( <a list of dataset names> )
 ```
-Passed a list of dataset names, returns a list of those which actually exist. 
+Passed a list of dataset names, returns a list of those which actually exist. Not a logical test like `dataset_exist()`. Useful for setting a list of datasets in 'greedy' fashion.
 
 E.g. `%datasets_exist(sashelp.cars something_else sashelp.baseball)` should return `sashelp.cars sashelp.baseball`.
 
