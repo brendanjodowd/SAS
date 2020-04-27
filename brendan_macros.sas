@@ -955,7 +955,7 @@ time_string_RTL /*A string that describes a duration in minutes and seconds*/
 duration_of_this_step_RTL /*I just use this to find out if the process is getting slower or faster*/
 ;
 
-%let total_in_list_RTL = %sysfunc(countw(&list));
+%let total_in_list_RTL = %sysfunc(countw(&list , , s));
 %put number of elements in list is &total_in_list_RTL ; 
 %let percentage_per_step_RTL = %sysevalf( 100/ &total_in_list_RTL );
 
@@ -972,7 +972,7 @@ duration_of_this_step_RTL /*I just use this to find out if the process is gettin
 	/*This value is set to the current time. After the macro is run the new current time will be subtracted from it*/
 	%let duration_of_this_step_RTL =  %sysfunc(datetime());
 	/* Apply the macro. */
-	%&macro_name( %scan(&list, &step_counter_RTL) );
+	%&macro_name( %scan(&list, &step_counter_RTL , , s) );
 	%let duration_of_this_step_RTL = %sysevalf( %sysfunc(datetime()) - &duration_of_this_step_RTL );
 
 	/* Find average time per step and remaining time to finish */
