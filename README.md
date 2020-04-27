@@ -38,6 +38,7 @@ Table of Contents
       * [remove_word](#remove_word)
       * [remove_nth_word](#remove_nth_word)
       * [replace_word](#replace_word)
+      * [list_substr](#list_substr)
   * [Manipulating String Variables](#manipulating-string-variables)
       * [as_num, as_char](#as_num-as_char)
       * [extract_num](#extract_num)
@@ -195,6 +196,14 @@ Returns the list with the nth word removed.
 %replace_word(<some list> , old_word , new_word)
 ```
 Returns the list with ```old_word``` replaced by ```new_word```. Case insensitive and matches whole word only.
+
+### list_substr
+```SAS
+%list_substr(<some list> , <start number> , <length number>)
+```
+Returns a list of substrings of each word in `<some list>`, with each substring defined by a starting position (`<start number>`) and length (`<length number>`).
+
+E.g. `%list_substr(file_2010_a file_2011_a file_2012_b , 6 , 4)` would return `2010 2011 2012`.
 
 ## Manipulating String Variables
 ### as_num as_char
