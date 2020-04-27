@@ -392,6 +392,37 @@ Compare the following two outputs:
 &sentence_to_return 
 %mend;
 
+
+/*#####################################################################################*/
+/*                                   LIST_SUBSTR                                       */
+/*
+
+Returns a list of substrings of each word in an original list, with each substring 
+defined by a starting position and length.
+
+%put %list_substr(file_2010_a file_2011_a file_2012_b , 6 , 4);
+*/
+%macro list_substr(list , start , length);
+%local num_words substr_counter return_list;
+%let num_words = %sysfunc(countw(&list , , s));
+%let return_list = ;
+/*
+Need to check all words are long enough
+*/
+%do substr_counter = 1 %to &num_words;
+	%let word_length  = %length(%scan(&list, &substr_counter , , s));
+	%if %eval(&word_length < &start + &length -1 ) %then %do;
+		%put One of the words in the list is not long enough: %scan(&list, &substr_counter , , s);
+		%abort;
+	%end;
+%end;
+%do substr_counter = 1 %to &num_words;
+	%let return_list = &return_list %substr(%scan(&list, &substr_counter , , s) , &start , &length);
+%end;
+&return_list
+%mend;
+
+
 /*#####################################################################################*/
 /*                                 PRINT_VARS                                          */
 /*
