@@ -22,7 +22,7 @@ Table of Contents
 
   * [Generating Lists](#generating-lists)
       * [seq](#seq)
-      * [add_prefix](#add_prefix)
+      * [add_prefix, add_suffix](#add_prefix-add_suffix)
       * [list_vars](#list_vars)
       * [add_commas](#add_commas)
       * [add_keep](#add_keep)
@@ -86,8 +86,9 @@ Generates an ascending list from one number to another.
 ### add_prefix
 ```SAS
 %add_prefix(<some list here>, prefix)
+%add_sufffix(<some list here>, suffix)
 ```
-Returns a list but with a string concatenated to start of each word. Useful for converting one kind of list into another.
+Returns a list but with a string concatenated to start (or end) of each word. Useful for converting one kind of list into another.
 E.g.
 ```SAS
 %put %add_prefix(2010 2011 2012, accounts_);
