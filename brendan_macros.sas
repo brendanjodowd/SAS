@@ -16,6 +16,25 @@ Generates an ascending sequence of numbers from x to y
 %mend;
 
 /*#####################################################################################*/
+/*                                   REP                                               */
+/*
+Repeats a string a number of times, separated by spaces
+
+%put %rep(cat , 5);
+*/
+%macro rep(string, number);
+%local rep_counter return_string;
+%if %is_int(&number)=0 %then %do;
+	%put Problem with numbers passed to REP macro: &number;
+	%abort;
+%end;
+%let return_string =;
+%do rep_counter = 1 %to &number;
+	%let return_string = &return_string &string;
+%end;
+&return_string
+%mend;
+/*#####################################################################################*/
 /*                               ADD_PREFIX / SUFFIX                                   */
 /*
 %put %add_prefix( %seq(1,4) , p_);
