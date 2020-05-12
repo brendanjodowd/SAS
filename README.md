@@ -22,6 +22,7 @@ Table of Contents
 
   * [Generating Lists](#generating-lists)
       * [seq](#seq)
+      * [rep](#rep)
       * [add_prefix, add_suffix](#add_prefix-add_suffix)
       * [list_vars](#list_vars)
       * [add_commas](#add_commas)
@@ -83,6 +84,11 @@ Table of Contents
 %seq(x, y)
 ```
 Generates an ascending list from one number to another.
+### rep
+```SAS
+%rep(<string>, <integer>)
+```
+Returns a string repeated a number of times, separated by spaces. 
 ### add_prefix
 ```SAS
 %add_prefix(<some list here>, prefix)
