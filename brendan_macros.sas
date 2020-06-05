@@ -1239,12 +1239,4 @@ run;
 %mend;
 
 
-/*#####################################################################################*/
-/*                                 FIX_BROKEN_MACRO                                    */
-/*
-Fixes most problems with running broken macros. 
-Keep running until you get: ERROR: No matching %MACRO statement for this %MEND statement.
 
-%macro fix_broken_macro;
-*); */; /*’*/ /*”*/; %mend;
-%mend;
