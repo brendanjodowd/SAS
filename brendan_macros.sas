@@ -234,6 +234,11 @@ input(strip( compress(&number , , "dk")  ) , 8.)
 strip(compbl(&string))
 %mend;
 
+/*#####################################################################################*/
+/*                                   LAST_N_CHARS                                      */
+%macro last_n_chars(string , n);
+substr(&string , length(&string)-&n+1  )
+%mend;
 
 /*#####################################################################################*/
 /*                            CROP_LEFT AND CROP_RIGHT                                 */
