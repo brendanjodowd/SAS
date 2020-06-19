@@ -44,6 +44,7 @@ Table of Contents
       * [as_num, as_char](#as_num-as_char)
       * [extract_num](#extract_num)
       * [squish](#squish)
+      * [last_n_chars](#last_n_chars)
       * [crop_left, crop_right](#crop_left-crop_right)
   * [Checking variables in datasets](#checking-variables-in-datasets)
       * [print_vars](#print_vars)
@@ -239,6 +240,12 @@ A stronger version of ```%as_num()```, extracting a number from among other char
 %squish( <some string variable> )
 ```
 Removes leading and trailing blanks, and replaces multiple spaces with a single space. Inspired by `str_squish()` in the stringr package for R.
+
+### last_n_chars
+```SAS
+%last_n_chars( <some string variable>  , n)
+```
+Trying to extract the last number of characters from a string is a messy function involving the length of the string and some addition and substraction to get the right location within the string. This is a cleaner function. 
 
 ### crop_left crop_right
 ```SAS
