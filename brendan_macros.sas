@@ -317,7 +317,7 @@ This only finds whole words and is case insensitive.
 %let return_sentence = ;
 %do begin_counter = 1 %to %sysfunc(countw(&sentence));
 	%let current_word = %scan(&sentence , &begin_counter);
-	%if %eval(%length(&phrase) < %length(&current_word)) %then %do;
+	%if %eval(%length(&phrase) <= %length(&current_word)) %then %do;
 		%let word_bit = %substr(&current_word , 1 , %length(&phrase));
 		%if %lowcase(&word_bit) = %lowcase(&phrase) %then %let return_sentence = &return_sentence &current_word;
 	%end;
@@ -330,7 +330,7 @@ This only finds whole words and is case insensitive.
 %let return_sentence = ;
 %do end_counter = 1 %to %sysfunc(countw(&sentence));
 	%let current_word = %scan(&sentence , &end_counter);
-	%if %eval(%length(&phrase) < %length(&current_word)) %then %do;
+	%if %eval(%length(&phrase) <= %length(&current_word)) %then %do;
 		%let word_bit = %substr(&current_word , %eval(%length(&current_word) - %length(&phrase) +1 )  );
 		%if %lowcase(&word_bit) = %lowcase(&phrase) %then %let return_sentence = &return_sentence &current_word;
 	%end;
@@ -343,7 +343,7 @@ This only finds whole words and is case insensitive.
 %let return_sentence = ;
 %do contain_counter = 1 %to %sysfunc(countw(&sentence));
 	%let current_word = %scan(&sentence , &contain_counter);
-	%if %eval(%length(&phrase) < %length(&current_word)) %then %do;
+	%if %eval(%length(&phrase) <= %length(&current_word)) %then %do;
 		%if %sysfunc(find(  %lowcase(&current_word) , %lowcase(&phrase)  )) %then %let return_sentence = &return_sentence &current_word;
 	%end;
 %end;
