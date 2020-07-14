@@ -383,7 +383,13 @@ Potential replacement:
 &return_sentence
 %mend;
 
+/*#####################################################################################*/
+/*                            REMOVE_WORDS_CONTAINING                                  */
+/*
 
+%macro remove_words_containing(list , phrase);
+%left_anti_join(&list , %words_containing(&list , &phrase))
+%mend;
 
 /*#####################################################################################*/
 /*                                 REMOVE_NTH_WORD                                     */
