@@ -349,14 +349,18 @@ This only finds whole words and is case insensitive.
 &return_sentence 
 %mend;
 
-%macro words_containing(sentence , phrase);
-%local contain_counter word_bit current_word return_sentence;
+
+%macro words_containing(sentence , phrases);
+%local contain_counter word_bit current_word return_sentence current_phrase phrase_counter;
 %let return_sentence = ;
 %do contain_counter = 1 %to %sysfunc(countw(&sentence));
 	%let current_word = %scan(&sentence , &contain_counter);
-	%if %eval(%length(&phrase) <= %length(&current_word)) %then %do;
-		%if %sysfunc(find(  %lowcase(&current_word) , %lowcase(&phrase)  )) %then %let return_sentence = &return_sentence &current_word;
-	%end;
+		%do phrase_counter = 1 %to %sysfunc(countw(&phrases));
+			%let current_phrase = %scan(&phrases , &phrase_counter);	
+			%if %eval(%length(&current_phrase) <= %length(&current_word)) %then %do;
+				%if %sysfunc(find(  %lowcase(&current_word) , %lowcase(&current_phrase)  )) %then %let return_sentence = &return_sentence &current_word;
+			%end;
+		%end;
 %end;
 &return_sentence 
 %mend;
