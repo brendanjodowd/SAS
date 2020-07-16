@@ -403,7 +403,7 @@ Potential replacement:
 
 
 %macro remove_words_containing(list , phrase);
-%left_anti_join(&list , %words_containing(&list , &phrase))
+%remove_words(&list , %words_containing(&list , &phrase))
 %mend;
 
 /*#####################################################################################*/
