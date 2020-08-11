@@ -323,28 +323,35 @@ This only finds whole words and is case insensitive.
 %put %words_containing( id ANNUAL_TAX income_tax_to_date  age , tax);
 
 */
-%macro words_beginning_with(sentence , phrase);
-%local begin_counter word_bit current_word return_sentence;
+%macro words_beginning_with(sentence , phrases);
+%local begin_counter word_bit current_word return_sentence current_phrase;
 %let return_sentence = ;
 %do begin_counter = 1 %to %sysfunc(countw(&sentence));
 	%let current_word = %scan(&sentence , &begin_counter);
-	%if %eval(%length(&phrase) <= %length(&current_word)) %then %do;
-		%let word_bit = %substr(&current_word , 1 , %length(&phrase));
-		%if %lowcase(&word_bit) = %lowcase(&phrase) %then %let return_sentence = &return_sentence &current_word;
-	%end;
+		%do phrase_counter = 1 %to %sysfunc(countw(&phrases));
+			%let current_phrase = %scan(&phrases , &phrase_counter);	
+			%if %eval(%length(&current_phrase) <= %length(&current_word)) %then %do;
+				%let word_bit = %substr(&current_word , 1 , %length(&current_phrase));
+				%if %lowcase(&word_bit) = %lowcase(&current_phrase) %then %let return_sentence = &return_sentence &current_word;
+			%end;
+		%end;
 %end;
 &return_sentence 
 %mend;
 
-%macro words_ending_with(sentence , phrase);
-%local end_counter word_bit current_word return_sentence;
+
+%macro words_ending_with(sentence , phrases);
+%local begin_counter word_bit current_word return_sentence current_phrase;
 %let return_sentence = ;
-%do end_counter = 1 %to %sysfunc(countw(&sentence));
-	%let current_word = %scan(&sentence , &end_counter);
-	%if %eval(%length(&phrase) <= %length(&current_word)) %then %do;
-		%let word_bit = %substr(&current_word , %eval(%length(&current_word) - %length(&phrase) +1 )  );
-		%if %lowcase(&word_bit) = %lowcase(&phrase) %then %let return_sentence = &return_sentence &current_word;
-	%end;
+%do begin_counter = 1 %to %sysfunc(countw(&sentence));
+	%let current_word = %scan(&sentence , &begin_counter);
+		%do phrase_counter = 1 %to %sysfunc(countw(&phrases));
+			%let current_phrase = %scan(&phrases , &phrase_counter);	
+			%if %eval(%length(&current_phrase) <= %length(&current_word)) %then %do;
+				%let word_bit = %substr(&current_word , %eval(%length(&current_word) - %length(&current_phrase) +1 )  );
+				%if %lowcase(&word_bit) = %lowcase(&current_phrase) %then %let return_sentence = &return_sentence &current_word;
+			%end;
+		%end;
 %end;
 &return_sentence 
 %mend;
