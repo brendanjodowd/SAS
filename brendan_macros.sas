@@ -829,8 +829,18 @@ proc sort data= &dataset ;
 run;
 %mend;
 
+/*#####################################################################################*/
+/*                                  KEEP_FIRST                                         */
 
-
+%macro keep_first(dataset_name, variable_list);
+%local last_variable;
+%let last_variable = %scan(&variable_list, -1);
+data &dataset_name;
+	set &dataset_name;
+	by &variable_list;
+	if first.&last_variable;
+run;
+%mend;
 
 /*#####################################################################################*/
 /*                                   UNIQUE                                            */
