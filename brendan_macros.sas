@@ -273,7 +273,7 @@ trimn(substr(&sentence , 1, find(&sentence , &phrase)-1))
 %mend;
 
 /*#####################################################################################*/
-/*                                   FIND_WORD                                     */
+/*                                    NUM_WORDS                                        */
 /*
 Number of words in a string/list. Note that the only delimiter is some kind of space, 
 so fullstops do not seperate words on their own. Therefore SAS datasets with library
@@ -284,7 +284,7 @@ are a single word
 %mend;
 
 /*#####################################################################################*/
-/*                                   FIND_WORD                                     */
+/*                                    FIND_WORD                                        */
 /*
 This returns zero or a postive number, so can be used for logical operations.
 
