@@ -275,6 +275,17 @@ trimn(substr(&sentence , 1, find(&sentence , &phrase)-1))
 /*#####################################################################################*/
 /*                                   FIND_WORD                                     */
 /*
+Number of words in a string/list. Note that the only delimiter is some kind of space, 
+so fullstops do not seperate words on their own. Therefore SAS datasets with library
+are a single word
+*/
+%macro num_words(sentence);
+%sysfunc(countw(&sentence , , s))
+%mend;
+
+/*#####################################################################################*/
+/*                                   FIND_WORD                                     */
+/*
 This returns zero or a postive number, so can be used for logical operations.
 
 FINDW can also be used, but it returns the character position instead of the word position.
