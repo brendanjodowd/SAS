@@ -139,7 +139,7 @@ copy and paste variable names into Excel.
 %macro add_drop(list , drop_vars  );
 %local result list;
 %let list = %cmpres(&list);
-%let result = %sysfunc(tranwrd(&list , %STR( ) , %STR( (keep= &drop_vars) ))) (keep= &drop_vars);
+%let result = %sysfunc(tranwrd(&list , %STR( ) , %STR( (drop= &drop_vars) ))) (drop= &drop_vars);
 &result
 %mend;
 
