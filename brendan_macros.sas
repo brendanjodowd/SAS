@@ -136,6 +136,13 @@ copy and paste variable names into Excel.
 &result
 %mend;
 
+%macro add_drop(list , drop_vars  );
+%local result list;
+%let list = %cmpres(&list);
+%let result = %sysfunc(tranwrd(&list , %STR( ) , %STR( (keep= &drop_vars) ))) (keep= &drop_vars);
+&result
+%mend;
+
 /*#####################################################################################*/
 /*                                UNION                                                */
 /*
