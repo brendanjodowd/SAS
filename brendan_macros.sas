@@ -1180,7 +1180,6 @@ run;
 %tell_me_about(sales_1 sales_2 sales_3 );
 
 */
-
 %macro tell_me_about( list );
 %local step_counter_TMA list_item library_part list_length_TMA basis_for_names first_item_TMA second_item_TMA list_of_list_items;
 
@@ -1239,7 +1238,6 @@ run;
 	proc sort data=format_record_&list_item. ; by name; run;
 %end;
 
-
 /*
 This gets just the set and NOBS.
 Each row is roughly the same, but as a precaution we take the maximum NOBS
@@ -1276,28 +1274,62 @@ run;
 data name_record ;
 	merge all_num_obs %add_keep( %add_prefix(&list_of_list_items , format_record_ ) , name name_:) ; 
 	by name;
+	array n_a {*} name_: ;
+	*incontinuity = countw( catx(" " ,  of n_a[*])   )  ~= dim(n_a);
+	incontinuity = cmiss(of n_a[*]) > 0;
 run;
+
 data type_record ;
 	merge %add_keep( %add_prefix(&list_of_list_items , format_record_ ) , name type_:) ; 
 	by name;
+	array t_a {*} type_: ;
+	incontinuity = min(whichc("N" , of t_a[*]), whichc("C" , of t_a[*]))>0;
 run;
+
 data length_record ;
 	merge %add_keep( %add_prefix(&list_of_list_items , format_record_ ) , name length_:) ; 
 	by name;
+	array l_a {*} length_: ;
+	incontinuity = range(of l_a[*]) > 1;
 run;
 %delete_dataset(%add_prefix(&list_of_list_items , format_record_ ) all_num_obs);
 
+
 %if %eval(&list_length_TMA. =1 )%then %do;
-	data dataset_format;
+	data dataset_format (drop=incontinuity);
 		merge 
-				type_record (rename= %remove_word(%list_vars(type_record),name)=Type) 
-				length_record (rename= %remove_word(%list_vars(length_record),name)=Length);
+				type_record (rename= %remove_words(%list_vars(type_record),name incontinuity)=Type) 
+				length_record (rename= %remove_words(%list_vars(length_record),name incontinuity)=Length);
 		by name;
 	run;
 	%delete_dataset(name_record type_record length_record);
+	proc report data=dataset_format ;
+	run;
+	%delete_dataset(dataset_format);
+run;
 %end;
-
+%else %do;
+proc report data=name_record ;
+	column %list_Vars(name_record);
+	define incontinuity / display noprint;
+	compute incontinuity;
+		if incontinuity =1 then call define(_row_,"style","style={background=orange}");
+	endcomp;
+run;
+proc report data=type_record ;
+	column %list_Vars(type_record);
+	define incontinuity / display noprint;
+	compute incontinuity;
+		if incontinuity =1 then call define(_row_,"style","style={background=orange}");
+	endcomp;
+run;
+proc report data=length_record ;
+	column %list_Vars(length_record);
+	define incontinuity / display noprint;
+	compute incontinuity;
+		if incontinuity =1 then call define(_row_,"style","style={background=orange}");
+	endcomp;
+run;
+%delete_dataset(name_record type_record length_record);
+%end;
 %mend;
-
-
-
