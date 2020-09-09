@@ -1290,7 +1290,7 @@ data length_record ;
 	merge %add_keep( %add_prefix(&list_of_list_items , format_record_ ) , name length_:) ; 
 	by name;
 	array l_a {*} length_: ;
-	incontinuity = range(of l_a[*]) > 1;
+	incontinuity = range(of l_a[*]) >0;
 run;
 %delete_dataset(%add_prefix(&list_of_list_items , format_record_ ) all_num_obs);
 
