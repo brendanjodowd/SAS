@@ -494,6 +494,21 @@ Need to check all words are long enough
 
 
 /*#####################################################################################*/
+/*                                 IF_ELSE                                             */
+/*
+%put response is %if_else(2020 > 2010 , True , False);
+Note you have to use EQ instead of = here or else SAS will think you are using a positional parameter. 
+See also NE GT LT GE LE IN
+*/
+%macro if_else(statement , T , F ) ;
+%local return_element;
+%if &statement %then %let return_element = &T;
+%else %let return_element = &F;
+&return_element.
+%mend;
+
+
+/*#####################################################################################*/
 /*                                 PRINT_VARS                                          */
 /*
 %print_vars(sashelp.cars);
