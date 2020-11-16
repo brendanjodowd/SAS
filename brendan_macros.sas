@@ -1237,12 +1237,12 @@ run;
 	%end;
 
 	proc contents data = &dataset_to_import. 
-	out = format_record_&list_item. (keep=name type length nobs) 
+	out = fmts_&list_item. (keep=name type length nobs) 
 	noprint	;
 	run; 
-	data format_record_&list_item.;
+	data fmts_&list_item.;
 		length set $50;
-		set format_record_&list_item.;
+		set fmts_&list_item.;
 		name = lowcase(name);
 		name_&list_item. = name;
 		if type = 2 then type_&list_item. = "C";
@@ -1250,7 +1250,7 @@ run;
 		length_&list_item. = length;
 		set = "&list_item." ;
 	run;
-	proc sort data=format_record_&list_item. ; by name; run;
+	proc sort data=fmts_&list_item. ; by name; run;
 %end;
 
 /*
@@ -1259,7 +1259,7 @@ Each row is roughly the same, but as a precaution we take the maximum NOBS
 The next few steps take the 
 */
 data all_num_obs;
-	set %add_prefix(&list_of_list_items , format_record_ )  (keep=set nobs);
+	set %add_prefix(&list_of_list_items , fmts_ )  (keep=set nobs);
 run;
 proc sort data=all_num_obs ; by set descending nobs; run;
 
@@ -1287,7 +1287,7 @@ run;
 
 /*Now we make the individual records. The first one has nobs also*/
 data name_record ;
-	merge all_num_obs %add_keep( %add_prefix(&list_of_list_items , format_record_ ) , name name_:) ; 
+	merge all_num_obs %add_keep( %add_prefix(&list_of_list_items , fmts_ ) , name name_:) ; 
 	by name;
 	array n_a {*} name_: ;
 	*incontinuity = countw( catx(" " ,  of n_a[*])   )  ~= dim(n_a);
@@ -1295,19 +1295,19 @@ data name_record ;
 run;
 
 data type_record ;
-	merge %add_keep( %add_prefix(&list_of_list_items , format_record_ ) , name type_:) ; 
+	merge %add_keep( %add_prefix(&list_of_list_items , fmts_ ) , name type_:) ; 
 	by name;
 	array t_a {*} type_: ;
 	incontinuity = min(whichc("N" , of t_a[*]), whichc("C" , of t_a[*]))>0;
 run;
 
 data length_record ;
-	merge %add_keep( %add_prefix(&list_of_list_items , format_record_ ) , name length_:) ; 
+	merge %add_keep( %add_prefix(&list_of_list_items , fmts_ ) , name length_:) ; 
 	by name;
 	array l_a {*} length_: ;
 	incontinuity = range(of l_a[*]) >0;
 run;
-%delete_dataset(%add_prefix(&list_of_list_items , format_record_ ) all_num_obs);
+%delete_dataset(%add_prefix(&list_of_list_items , fmts_ ) all_num_obs);
 
 
 %if %eval(&list_length_TMA. =1 )%then %do;
