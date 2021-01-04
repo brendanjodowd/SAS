@@ -550,7 +550,7 @@ title;
 %put %vars_exist(sashelp.cars , model model_name model_id);
 */
 %macro vars_exist(dataset, list_of_vars);
-%intersect_lists( %list_vars( &dataset , &list_of_vars )
+%intersect_lists( %list_vars( &dataset , &list_of_vars ))
 %mend;
 
 /*#####################################################################################*/
