@@ -545,6 +545,15 @@ title;
 %mend ;
 
 /*#####################################################################################*/
+/*                                 VARS_EXIST                                          */
+/*
+%put %vars_exist(sashelp.cars , model model_name model_id);
+*/
+%macro vars_exist(dataset, list_of_vars);
+%intersect_lists( %list_vars( &dataset , &list_of_vars )
+%mend;
+
+/*#####################################################################################*/
 /*                                 VAR_TYPE                                            */
 /*
 %put Type is %var_type(sashelp.cars , origin);
