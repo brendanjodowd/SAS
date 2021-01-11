@@ -690,6 +690,39 @@ Note that it returns a list and is not a logical test.
 %mend;
 
 /*#####################################################################################*/
+/*                                 LIST_DATASETS                                       */
+/*
+Pass this macro either a libname or a directory path (without quotes) and it will return
+a list of all the SAS datasets within. 
+
+E.g. 
+%put %list_datasets(WORK);
+*/
+
+%macro list_datasets(dir );
+  %local filrf rc did memcnt name i folder_name return_list_datasets;
+  %if %index(&dir , \) = 0 and %index(&dir , /)=0 %then %let dir = %sysfunc(pathname(&dir));
+  %let rc=%sysfunc(filename(filrf,&dir));
+  %let did=%sysfunc(dopen(&filrf));      
+
+   %if &did eq 0 %then %do; 
+    %put Directory &dir cannot be opened or does not exist;
+    %return;
+  %end;
+  %LET return_list_datasets = ;
+   %do i = 1 %to %sysfunc(dnum(&did));  
+   	%let name=%qsysfunc(dread(&did,&i));
+	  %if %qupcase(%qscan(&name,-1,.)) = SAS7BDAT %then %do; 
+	  	%LET return_list_datasets = &return_list_datasets %qscan(&name,1,.);
+	  %end;
+   %end;
+   %let rc=%sysfunc(dclose(&did));
+   %let rc=%sysfunc(filename(filrf));   
+&return_list_datasets 
+%mend list_datasets;
+
+
+/*#####################################################################################*/
 /*                                 DELETE_DATASET                                      */
 /*
 %delete_dataset(data_1 data_2 );
