@@ -58,6 +58,7 @@ Table of Contents
       * [show_datasets](#show_datasets)
       * [dataset_exist](#dataset_exist)
       * [datasets_exist](#datasets_exist)
+      * [list_datasets](#list_datasets)
       * [delete_dataset](#delete_dataset)
       * [rename_var](#rename_var)
       * [add_label](#add_label)
@@ -318,6 +319,14 @@ Logical test to see if a dataset exists. Used in many other macros.
 %datasets_exist( <a list of dataset names> )
 ```
 Passed a list of dataset names, returns a list of those which actually exist. Not a logical test like `dataset_exist()`. Useful for setting a list of datasets in 'greedy' fashion.
+
+E.g. `%datasets_exist(sashelp.cars something_else sashelp.baseball)` should return `sashelp.cars sashelp.baseball`.
+
+### list_datasets
+```SAS
+%list_datasets( <either a directory path (no quotes) or a libname> )
+```
+Returns a list of SAS datasets (file extension sas7bdat) in the directory/libname. Does not include subfolders. Does not include libname prefix (you could use `%add_prefix()` to generate a list with libname prefixed to list).
 
 E.g. `%datasets_exist(sashelp.cars something_else sashelp.baseball)` should return `sashelp.cars sashelp.baseball`.
 
