@@ -328,8 +328,6 @@ E.g. `%datasets_exist(sashelp.cars something_else sashelp.baseball)` should retu
 ```
 Returns a list of SAS datasets (file extension sas7bdat) in the directory/libname. Does not include subfolders. Does not include libname prefix (you could use `%add_prefix()` to generate a list with libname prefixed to list).
 
-E.g. `%datasets_exist(sashelp.cars something_else sashelp.baseball)` should return `sashelp.cars sashelp.baseball`.
-
 ### delete_dataset
 ```SAS
 %delete_dataset(dataset_name);
