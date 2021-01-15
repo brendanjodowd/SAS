@@ -219,10 +219,12 @@ copy and paste variable names into Excel.
 /*
 %put %pairwise_join(hand foot tree , bag ball house);
 %put %pairwise_join(library_2010 library_2012 , file_2010 file_2012 , sep=. );
+%put %pairwise_join(cat dog bird , bed house cage , sep=space);
 */
 %macro pairwise_join(list_1 , list_2 , sep= );
 %local size_list match_counter;
 %let return_sentence = ;
+%if %upcase(&sep)=SPACE %then %let sep = %str( );
 %let size_list = %sysfunc(countw(&list_1));
 %if &size_list ~= %sysfunc(countw(&list_2)) %then %abort;
 %do match_counter = 1 %to &size_list;
