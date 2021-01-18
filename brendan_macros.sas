@@ -769,6 +769,7 @@ run;
 	PROC DATASETS LIBRARY=work nolist;
 	MODIFY &ds ;
 	RENAME &old_var=&new_var;
+	QUIT;
 	RUN;
 %end;
 %else %do;
