@@ -360,10 +360,10 @@ This only finds whole words and is case insensitive.
 %macro words_beginning_with(sentence , phrases);
 %local begin_counter word_bit current_word return_sentence current_phrase;
 %let return_sentence = ;
-%do begin_counter = 1 %to %sysfunc(countw(&sentence));
-	%let current_word = %scan(&sentence , &begin_counter);
-		%do phrase_counter = 1 %to %sysfunc(countw(&phrases));
-			%let current_phrase = %scan(&phrases , &phrase_counter);	
+%do begin_counter = 1 %to %num_words(&sentence);
+	%let current_word = %nth_word(&sentence , &begin_counter) ;
+		%do phrase_counter = 1 %to %num_words(&phrases);
+			%let current_phrase = %nth_word(&phrases , &phrase_counter);	
 			%if %eval(%length(&current_phrase) <= %length(&current_word)) %then %do;
 				%let word_bit = %substr(&current_word , 1 , %length(&current_phrase));
 				%if %lowcase(&word_bit) = %lowcase(&current_phrase) %then %let return_sentence = &return_sentence &current_word;
@@ -377,10 +377,10 @@ This only finds whole words and is case insensitive.
 %macro words_ending_with(sentence , phrases);
 %local begin_counter word_bit current_word return_sentence current_phrase;
 %let return_sentence = ;
-%do begin_counter = 1 %to %sysfunc(countw(&sentence));
-	%let current_word = %scan(&sentence , &begin_counter);
-		%do phrase_counter = 1 %to %sysfunc(countw(&phrases));
-			%let current_phrase = %scan(&phrases , &phrase_counter);	
+%do begin_counter = 1 %to %num_words(&sentence);
+	%let current_word = %nth_word(&sentence , &begin_counter) ;
+		%do phrase_counter = 1 %to %num_words(&phrases);
+			%let current_phrase = %nth_word(&phrases , &phrase_counter);	
 			%if %eval(%length(&current_phrase) <= %length(&current_word)) %then %do;
 				%let word_bit = %substr(&current_word , %eval(%length(&current_word) - %length(&current_phrase) +1 )  );
 				%if %lowcase(&word_bit) = %lowcase(&current_phrase) %then %let return_sentence = &return_sentence &current_word;
@@ -394,10 +394,10 @@ This only finds whole words and is case insensitive.
 %macro words_containing(sentence , phrases);
 %local contain_counter word_bit current_word return_sentence current_phrase phrase_counter;
 %let return_sentence = ;
-%do contain_counter = 1 %to %sysfunc(countw(&sentence));
-	%let current_word = %scan(&sentence , &contain_counter);
-		%do phrase_counter = 1 %to %sysfunc(countw(&phrases));
-			%let current_phrase = %scan(&phrases , &phrase_counter);	
+%do begin_counter = 1 %to %num_words(&sentence);
+	%let current_word = %nth_word(&sentence , &begin_counter) ;
+		%do phrase_counter = 1 %to %num_words(&phrases);
+			%let current_phrase = %nth_word(&phrases , &phrase_counter);	
 			%if %eval(%length(&current_phrase) <= %length(&current_word)) %then %do;
 				%if %sysfunc(find(  %lowcase(&current_word) , %lowcase(&current_phrase)  )) %then %let return_sentence = &return_sentence &current_word;
 			%end;
@@ -405,7 +405,6 @@ This only finds whole words and is case insensitive.
 %end;
 &return_sentence 
 %mend;
-
 
 
 
