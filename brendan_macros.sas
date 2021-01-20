@@ -293,6 +293,20 @@ are a single word
 %mend;
 
 /*#####################################################################################*/
+/*                                    NTH_WORD                                         */
+/*
+Returns the nth word in a list. Space is only delimiter.
+*/
+
+%macro nth_word(sentence , number);
+%if &number <1 OR &number >%num_words(&sentence) %then %do;
+	%put ERROR: Number is out of range for this list;
+	%abort;
+%end;
+%scan(&sentence , &number , ,s)
+%mend;
+
+/*#####################################################################################*/
 /*                                    FIND_WORD                                        */
 /*
 This returns zero or a postive number, so can be used for logical operations.
