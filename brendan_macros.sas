@@ -702,26 +702,41 @@ E.g.
 */
 
 %macro list_datasets(dir );
-  %local filrf rc did memcnt name i folder_name return_list_datasets;
-  %if %index(&dir , \) = 0 and %index(&dir , /)=0 %then %let dir = %sysfunc(pathname(&dir));
-  %let rc=%sysfunc(filename(filrf,&dir));
-  %let did=%sysfunc(dopen(&filrf));      
+	%local filrf rc did memcnt name i folder_name return_list_datasets lib_bit;
+	%let lib_bit = ;
+	%if %index(&dir , \) = 0 and %index(&dir , /)=0 %then
+		%do;
+			%let lib_bit = &dir..;
+			%let dir = %sysfunc(pathname(&dir));
+		%end;
 
-   %if &did eq 0 %then %do; 
-    %put Directory &dir cannot be opened or does not exist;
-    %return;
-  %end;
-  %LET return_list_datasets = ;
-   %do i = 1 %to %sysfunc(dnum(&did));  
-   	%let name=%qsysfunc(dread(&did,&i));
-	  %if %qupcase(%qscan(&name,-1,.)) = SAS7BDAT %then %do; 
-	  	%LET return_list_datasets = &return_list_datasets %qscan(&name,1,.);
-	  %end;
-   %end;
-   %let rc=%sysfunc(dclose(&did));
-   %let rc=%sysfunc(filename(filrf));   
-&return_list_datasets 
+	%let rc=%sysfunc(filename(filrf,&dir));
+	%let did=%sysfunc(dopen(&filrf));
+
+	%if &did eq 0 %then
+		%do;
+			%put Directory &dir cannot be opened or does not exist;
+
+			%return;
+		%end;
+
+	%LET return_list_datasets =;
+
+	%do i = 1 %to %sysfunc(dnum(&did));
+		%let name=%qsysfunc(dread(&did,&i));
+
+		%if %qupcase(%qscan(&name,-1,.)) = SAS7BDAT %then
+			%do;
+				%LET return_list_datasets = &return_list_datasets &lib_bit.%qscan(&name,1,.);
+			%end;
+	%end;
+
+	%let rc=%sysfunc(dclose(&did));
+	%let rc=%sysfunc(filename(filrf));
+	&return_list_datasets
 %mend list_datasets;
+
+
 
 
 /*#####################################################################################*/
