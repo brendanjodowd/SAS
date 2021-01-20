@@ -309,10 +309,10 @@ This only finds whole words and is case insensitive.
 %macro find_word(sentence , word ) ;
 %local word_position_counter;
 %let word_position_counter = 0;
-%if %sysfunc(findw(%lowcase(&sentence ), %lowcase(&word) )) %then %do;
-	%do word_position_counter = 1 %to %sysfunc(countw(&sentence));
-		%if %lowcase(&word) = %lowcase(%scan(&sentence , &word_position_counter)) %then %goto LEAVE;
-		%else %if &word_position_counter = %sysfunc(countw(&sentence)) %then %return;
+%if %sysfunc(findw(%lowcase(&sentence ), %lowcase(&word) , ,s )) %then %do;
+	%do word_position_counter = 1 %to %num_words(&sentence);
+		%if %lowcase(&word) = %lowcase(%scan(&sentence , &word_position_counter , ,s)) %then %goto LEAVE;
+		%else %if &word_position_counter = %num_words(&sentence) %then %return;
 	%end;
 %end;
 %LEAVE: &word_position_counter
