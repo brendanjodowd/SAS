@@ -193,8 +193,8 @@ copy and paste variable names into Excel.
 
 %macro left_anti_join(left_list , right_list);
 %local anti_join_counter current_word ;
-%if %is_blank(&right_list)=0 %then %do anti_join_counter = 1 %to %sysfunc(countw(&right_list));
-	%let current_word = %scan(&right_list , &anti_join_counter );
+%if %is_blank(&right_list)=0 %then %do anti_join_counter = 1 %to %num_words(&right_list);
+	%let current_word = %scan(&right_list , &anti_join_counter , ,s );
 	%if  %find_word(&left_list , &current_word) %then %do;
 		%let left_list = %remove_word(&left_list , &current_word);
 	%end;
@@ -204,8 +204,8 @@ copy and paste variable names into Excel.
 
 %macro remove_words(left_list , right_list);
 %local anti_join_counter current_word ;
-%if %is_blank(&right_list)=0 %then %do anti_join_counter = 1 %to %sysfunc(countw(&right_list));
-	%let current_word = %scan(&right_list , &anti_join_counter );
+%if %is_blank(&right_list)=0 %then %do anti_join_counter = 1 %to %num_words(&right_list);
+	%let current_word = %scan(&right_list , &anti_join_counter , ,s);
 	%if  %find_word(&left_list , &current_word) %then %do;
 		%let left_list = %remove_word(&left_list , &current_word);
 	%end;
