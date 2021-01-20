@@ -423,17 +423,15 @@ Potential replacement:
 %mend;
 */
 
+
 %macro remove_word(sentence, word);
-%local remove_counter return_sentence;
-%let return_sentence = &sentence;
+%local remove_counter return_sentence ;
+%let return_sentence = ;
 %do remove_counter = 1 %to %num_words(&sentence);
-	%if %lowcase(&word) = %lowcase(%scan(&sentence , &remove_counter, , s)) %then %do;
-		%if %eval(%sysfunc(findw(&sentence, %scan(&sentence , &remove_counter, ,s)))-1) = 0 %then %let return_sentence = ;
-		%else %let return_sentence = %substr(&sentence, 1, %sysfunc(findw(&sentence, %scan(&sentence , &remove_counter)))-1 ); 
-		%if %eval(%sysfunc(findw(&sentence, %scan(&sentence , &remove_counter , , s)))+ %length(&word)) <= %length(&sentence) %then 
-		%let return_sentence = &return_sentence%substr(&sentence, %eval(%sysfunc(findw(&sentence, %scan(&sentence , &remove_counter , , s)))+ %length(&word)) );
-		%let sentence = &return_sentence; 
-		%let remove_counter = %sysevalf(&remove_counter -1);
+	%if %eval(%lowcase(&word) = %lowcase(%nth_word(&sentence , &remove_counter)) ) %then %do;	
+	%end;
+	%else %do;
+		%let return_sentence = &return_sentence %nth_word(&sentence , &remove_counter);
 	%end;
 %end;
 &return_sentence
