@@ -547,11 +547,11 @@ title;
 	%let dsid=%sysfunc(open(&ds));
 	%if %sysfunc(varnum(&dsid,&var)) > 0 %then %do;
 		%let result=1;
-		%put NOTE: Variable &var exists in &ds;
+		/*%put NOTE: Variable &var exists in &ds;*/
 	%end;
 	%else %do;
 		%let result=0;
-		%put NOTE: Variable &var does not exist in &ds;
+		/*%put NOTE: Variable &var does not exist in &ds;*/
 	%end;
 	%let rc=%sysfunc(close(&dsid));
 	&result
@@ -678,7 +678,7 @@ Returns 1 or 0 depending on whether the dataset exists
 	%let result = 1;
 %end;
 %else %do;
-	%put Dataset &ds does not exist;
+	/*%put Dataset &ds does not exist;*/
 	%let result = 0;	
 %end;
 %let rc=%sysfunc(close(&dsid));
