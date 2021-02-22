@@ -779,6 +779,7 @@ ELSE If warning is YES and the new_name exists then ERROR ABORT
 ELSE If warning is NO and the old_name doesn't exist then NOTE 
 ELSE If warning is NO and the new_name exists then NOTE 
 ELSE (old_name exists and new_name doesn't) RENAME
+
 */
 
 %macro rename_var(ds , old_name= , new_name= , warn=YES);
@@ -798,7 +799,7 @@ ELSE (old_name exists and new_name doesn't) RENAME
 %else %if &warn = NO  and %var_exist(&ds , &new_name) %then %do;
 	%put NOTE: The variable &new_name already exists in the dataset &ds so nothing will be renamed; 
 %end;
-%else %if &warn = NO  and %var_exist(&ds , &new_name) %then %do;
+%else %if &warn = NO  and %var_exist(&ds , &old_name)=0 %then %do;
 	%put NOTE: The variable &old_name does not exist in the dataset &ds so nothing will be renamed; 
 %end;
 %else %do;
