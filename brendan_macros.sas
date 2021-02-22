@@ -771,35 +771,42 @@ run;
 data something;
 	set sashelp.cars;
 run;
-%rename_var(something , old_var=Make , new_var = Make_of_car );
+%rename_var(something , old_name=Make , new_name = Make_of_car );
+
+If the dataset doesn't exist then ABORT.
+If warning is YES and the old_name doesn't exist then ERROR ABORT
+ELSE If warning is YES and the new_name exists then ERROR ABORT
+ELSE If warning is NO and the old_name doesn't exist then NOTE 
+ELSE If warning is NO and the new_name exists then NOTE 
+ELSE (old_name exists and new_name doesn't) RENAME
 */
 
-%macro rename_var(ds , old_var= , new_var= , warn=YES);
+%macro rename_var(ds , old_name= , new_name= , warn=YES);
 %if %dataset_exist(&ds)=0 %then %do;
 	%put ERROR: The dataset passed to the rename macro does not exist: &ds ;
 	%abort;
 %end;
-%if %var_exist(&ds , &new_var) %then %do;
-	%put ERROR: You are trying to give a variable a name which is already used in this dataset ;
+
+%if &warn = YES and %var_exist(&ds , &new_name) %then %do;
+	%put ERROR: The variable &new_name already exists in the dataset &ds; 
 	%abort;
 %end;
-%if &warn = YES and %var_exist(&ds , &old_var)=0 %then %do;
-	%put WARNING: The variable &old_var does not exist in the dataset &ds;
-	%put No renaming will be carried out. ;
-	/*Optional abort statement here, or you could change WARNING to ERROR above.*/
-	/*%
-	abort;
-	*/
+%else %if &warn = YES and %var_exist(&ds , &old_name)=0 %then %do;
+	%put ERROR: The variable &old_name does not exist in the dataset &ds; 
+	%abort;
 %end;
-%else %if %var_exist(&ds , &old_var) %then %do;
-	PROC DATASETS LIBRARY=work nolist;
-	MODIFY &ds ;
-	RENAME &old_var=&new_var;
-	QUIT;
-	RUN;
+%else %if &warn = NO  and %var_exist(&ds , &new_name) %then %do;
+	%put NOTE: The variable &new_name already exists in the dataset &ds so nothing will be renamed; 
+%end;
+%else %if &warn = NO  and %var_exist(&ds , &new_name) %then %do;
+	%put NOTE: The variable &old_name does not exist in the dataset &ds so nothing will be renamed; 
 %end;
 %else %do;
-	%put NOTE: The variable &old_var does not exist in the dataset &ds so nothing will be renamed;
+	PROC DATASETS LIBRARY=work nolist;
+	MODIFY &ds ;
+	RENAME &old_name=&new_name;
+	QUIT;
+	RUN;
 %end;
 %mend; 
 
