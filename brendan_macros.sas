@@ -20,18 +20,47 @@ Generates an ascending sequence of numbers from x to y
 /*
 Repeats a string a number of times, separated by spaces
 
-%put %rep(cat , 5);
+%put %rep( cat dog fish,  6);
+%put %rep( cat dog fish,  each=6);
+
 */
-%macro rep(string, number);
-%local rep_counter return_string;
-%if %is_int(&number)=0 %then %do;
-	%put Problem with numbers passed to REP macro: &number;
+%macro rep(string, times  , each=);
+%local rep_counter return_string rep_counter_2;
+
+%if %is_blank(&times) and %is_blank(&each) %then %do;
+	%put ERROR: Both times and each values to rep macro are blank;
 	%abort;
 %end;
-%let return_string =;
-%do rep_counter = 1 %to &number;
-	%let return_string = &return_string &string;
+%if %is_blank(&times)=0 and %is_blank(&each)=0 %then %do;
+	%put ERROR: Rep macro cannot take values for both times and each;
+	%abort;
 %end;
+
+%if %is_blank(&times)=0 %then %do;
+	%put in the times structure;
+	%if %is_int(&times)=0 OR %eval(&times < 0) %then %do;
+		%put ERROR: Problem with times value passed to REP macro: &times;
+		%abort;
+	%end;
+	%let return_string =;
+	%do rep_counter = 1 %to &times;
+		%let return_string = &return_string &string;
+	%end;
+%end;
+%else %do;
+	%put in the each structure;
+	%if %is_int(&each)=0 OR %eval(&each < 0) %then %do;
+		%put ERROR: Problem with each value passed to REP macro: &each;
+		%abort;
+	%end;
+	%let return_string =;
+	%do rep_counter = 1 %to %num_words(&string);
+		%do rep_counter_2 = 1 %to &each;
+			%let return_string = &return_string %nth_word(&string , &rep_counter);
+		%end;
+	%end;
+%end;
+
 &return_string
 %mend;
 /*#####################################################################################*/
