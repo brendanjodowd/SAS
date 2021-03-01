@@ -37,7 +37,6 @@ Repeats a string a number of times, separated by spaces
 %end;
 
 %if %is_blank(&times)=0 %then %do;
-	%put in the times structure;
 	%if %is_int(&times)=0 OR %eval(&times < 0) %then %do;
 		%put ERROR: Problem with times value passed to REP macro: &times;
 		%abort;
@@ -48,7 +47,6 @@ Repeats a string a number of times, separated by spaces
 	%end;
 %end;
 %else %do;
-	%put in the each structure;
 	%if %is_int(&each)=0 OR %eval(&each < 0) %then %do;
 		%put ERROR: Problem with each value passed to REP macro: &each;
 		%abort;
