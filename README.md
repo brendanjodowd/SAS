@@ -14,7 +14,7 @@ Other macros return some kind of a string which is intended for use as code with
 
 ### What do you mean by a 'list'?
 
-A list here refers to a sequence of words that will be used as code. It could be a list of datasets, variables, years, etc. Macros designed for use with lists are useful when you building a series of datasets or when you're trying to write flexible code. They are not designed for working with character type variables, since they will probably pass the name of the variable rather than the string contained within it.
+A list here refers to a sequence of words that will be used as code. It could be a list of datasets, variables, years, etc. Macros designed for use with lists are useful when you are editing a series of datasets or when you're trying to write flexible code. They are not designed for operations on character type variables, since they will probably pass the name of the variable rather than the string contained within it.
 
 ***
 Table of Contents
