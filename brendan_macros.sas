@@ -152,6 +152,19 @@ copy and paste variable names into Excel.
 %mend;
 
 /*#####################################################################################*/
+/*                                 ADD_QUOTES                                          */
+
+%macro add_quotes(sentence , phrases);
+%local contain_counter word_bit current_word return_sentence current_phrase phrase_counter;
+%let return_sentence = ;
+%do begin_counter = 1 %to %num_words(&sentence);
+	%let current_word = %nth_word(&sentence , &begin_counter) ;
+	%let return_sentence = &return_sentence %sysfunc(quote(&current_word));
+%end;
+&return_sentence 
+%mend;
+
+/*#####################################################################################*/
 /*                                 ADD_KEEP                                            */
 /*
 %put %add_keep( sales_2010 sales_2011 sales_2012, id job_title);
