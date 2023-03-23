@@ -26,6 +26,7 @@ Table of Contents
       * [add_prefix, add_suffix](#add_prefix-add_suffix)
       * [list_vars](#list_vars)
       * [add_commas](#add_commas)
+      * [add_quotes](#add_quotes)
       * [add_keep](#add_keep)
   * [Joining Lists](#joining-lists)
       * [union](#union)
@@ -114,6 +115,11 @@ Returns a list of variables in a dataset that you might use as part of your code
 %add_commas(<some list here>)
 ```
 Returns a list but with commas between each word. Handy for proc sql and certain other functions.
+### add_quotes
+```SAS
+%add_quotes(<some list here>)
+```
+Returns a list but with double quotation marks around each word. Handy for proc sql and certain other functions. If you plan to use this in conjunction with ```%add_commas()```, then the quotes have to be applied first, i.e.: ```%add_commas(%add_quotes(<some list here>))```
 ### add_keep
 ```SAS
 %add_keep(<some list here> , var_1 var_2)
