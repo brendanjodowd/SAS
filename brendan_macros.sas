@@ -1476,14 +1476,23 @@ title;
 
 /*#####################################################################################*/
 /*                             GET_FILES_IN_FOLDER                                     */
-/*From Lex Jansen*/
+/*From Lex Jansen, with some edits for list_folders option */
 /*
 Creates a dataset which includes a single column, filename, which has each of the 
 files in a given folder.
 First argument is the name of the dataset to be returned, second argument is the folder
 location.
+By default (list_folders=NO) folders/directories are not included in the output. Set
+to YES to include them.
 */
-%macro get_files_in_folder(dataset_name, folder);
+%macro get_files_in_folder(dataset_name, folder , list_folders = NO);
+
+%if &list_folders. = NO %then %let output_line = if fid > 0 then output;
+%else %if &list_folders. = YES %then %let output_line = output;
+%else %do;
+	%put ERROR: Invalid value for list_folders, only YES or NO are allowed ;
+	%abort;
+%end;
 
 data &dataset_name.;
 	keep filename;
@@ -1506,7 +1515,7 @@ data &dataset_name.;
 		filename = dread(did, i);
 		/* If this entry is a file, then output. */
 		fid = mopen(did, filename);
-		if fid > 0 then output;
+		&output_line.;
 	end;
 	rc = dclose(did);
 run;
