@@ -1476,7 +1476,7 @@ title;
 
 /*#####################################################################################*/
 /*                             GET_FILES_IN_FOLDER                                     */
-/*From Lex Jansen, with some edits for list_folders option */
+/*From Lex Jansen, with some edits for list_folders and file_ext options */
 /*
 Creates a dataset which includes a single column, filename, which has each of the 
 files in a given folder.
@@ -1484,8 +1484,10 @@ First argument is the name of the dataset to be returned, second argument is the
 location.
 By default (list_folders=NO) folders/directories are not included in the output. Set
 to YES to include them.
+By default (file_ext=NO) file extenstions are not included as an extra column in the 
+output. Set to YES to include this.
 */
-%macro get_files_in_folder(dataset_name, folder , list_folders = NO);
+%macro get_files_in_folder(dataset_name, folder , list_folders = NO , file_ext = NO);
 
 %if &list_folders. = NO %then %let output_line = if fid > 0 then output;
 %else %if &list_folders. = YES %then %let output_line = output;
@@ -1494,9 +1496,17 @@ to YES to include them.
 	%abort;
 %end;
 
-data &dataset_name.;
-	keep filename;
-	length fref $8 filename $80;
+%if &file_ext. = NO %then %let keep_statement = ;
+%else %if &file_ext. = YES %then %let keep_statement = file_ext;
+%else %do;
+	%put ERROR: Invalid value for list_folders, only YES or NO are allowed ;
+	%abort;
+%end;
+
+data &dataset_name. ;
+	keep filename &keep_statement.;
+	length fref $8 filename $80 file_ext $15;
+
 	rc = filename(fref, &folder.);
 	if rc = 0 then do;
 		did = dopen(fref);
@@ -1515,6 +1525,7 @@ data &dataset_name.;
 		filename = dread(did, i);
 		/* If this entry is a file, then output. */
 		fid = mopen(did, filename);
+		file_ext = substr(strip(filename),   index(filename, '.' )+1);
 		&output_line.;
 	end;
 	rc = dclose(did);
