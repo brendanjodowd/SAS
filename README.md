@@ -25,6 +25,7 @@ Table of Contents
       * [rep](#rep)
       * [add_prefix, add_suffix](#add_prefix-add_suffix)
       * [list_vars](#list_vars)
+      * [pull](#pull)
       * [add_commas](#add_commas)
       * [add_quotes](#add_quotes)
       * [add_keep](#add_keep)
@@ -110,6 +111,13 @@ E.g.
 %list_char_vars(some_dataset)
 ```
 Returns a list of variables in a dataset that you might use as part of your code. You might choose to manipulate the string that gets returned, for example by adding or removing certain words. Can be useful in certain proc sql commands where the full list of variables is required. 
+
+### pull
+```SAS
+%pull(sashelp.class , Name)
+```
+Designed to be like the pull function in R. This outputs a macro variable containing all entries from a column in a dataset. The length of the resulting list/macro variable has an upper limit of 32,000 characters including spaces), so this is not suitable for large datasets. 
+
 ### add_commas
 ```SAS
 %add_commas(<some list here>)
