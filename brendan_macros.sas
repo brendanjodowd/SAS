@@ -139,6 +139,56 @@ copy and paste variable names into Excel.
  &varlist 
 %mend list_char_vars;
 
+
+/*#####################################################################################*/
+/*                                       PULL                                          */
+/*
+
+Designed to be similar to the pull function in R. This outputs a macro variable containing
+all entries from a column in a dataset. The length of the resulting list/macro variable has
+an upper limit of 32,000 characters (inlcuding spaces), so this is not suitable for large
+datasets.
+
+%put %pull(sashelp.class , Name);
+*/
+options cmplib = _null_;
+PROC FCMP outlib=work.functions.wrapper;
+function pull(dsn $, var $) $ ;
+	length name_list $32000;
+ 	rc = run_macro('pull_helper', dsn, var, name_list);
+ 	return(name_list);
+endsub;
+RUN;
+options cmplib=work.functions;
+%macro pull_helper;
+%let dsn = %sysfunc(dequote(&dsn.)); 
+%let var = %sysfunc(dequote(&var.));
+%let name_list = %sysfunc(dequote(&name_list.));
+
+data pull_data_out(keep=nameList);
+	length nameList $32000;
+	do until(eof);
+     set &dsn. end=eof;
+     nameList = catx(" ", nameList, &var.);
+     end;
+run;
+data _null_;
+	set pull_data_out;
+	call symput("name_list",nameList); 
+run;
+
+proc datasets lib=work memtype=data nolist ;
+	delete pull_data_out;
+quit;
+run;
+%let name_list = %sysfunc(strip(&name_list));
+%mend pull_helper;
+
+
+%macro pull(dataset_name, variable_name);
+%sysfunc(strip(%sysfunc(pull(&dataset_name, &variable_name))))
+%mend;
+
 /*#####################################################################################*/
 /*                                 ADD_COMMAS                                          */
 /*
