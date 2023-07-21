@@ -114,9 +114,15 @@ Returns a list of variables in a dataset that you might use as part of your code
 
 ### pull
 ```SAS
-%pull(sashelp.class , Name)
+%pull(dataset_name , variable_name)
 ```
 Designed to be like the pull function in R. This outputs a macro variable containing all entries from a column in a dataset. The length of the resulting list/macro variable has an upper limit of 32,000 characters including spaces), so this is not suitable for large datasets. 
+
+E.g.
+```SAS
+%put %pull(sashelp.class , name);
+```
+... returns: ```Alfred Alice Barbara Carol Henry James Jane Janet Jeffrey John Joyce Judy Louise Mary Philip Robert Ronald Thomas William```
 
 ### add_commas
 ```SAS
