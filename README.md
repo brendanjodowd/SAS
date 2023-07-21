@@ -134,6 +134,12 @@ Returns a list but with commas between each word. Handy for proc sql and certain
 %add_quotes(<some list here>)
 ```
 Returns a list but with double quotation marks around each word. Handy for proc sql and certain other functions. If you plan to use this in conjunction with ```%add_commas()```, then the quotes have to be applied first, i.e.: ```%add_commas(%add_quotes(<some list here>))```
+
+E.g.
+```SAS
+%put %add_commas(%add_quotes(apple tomato peach));
+```
+... returns: ```"apple", "tomato", "peach"```
 ### add_keep
 ```SAS
 %add_keep(<some list here> , var_1 var_2)
