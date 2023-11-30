@@ -805,6 +805,7 @@ E.g.
 %macro list_datasets(dir , ext = SAS7BDAT );
 	%local filrf rc did memcnt name i folder_name return_list_datasets lib_bit;
 	%let lib_bit = ;
+ 	%let ext = %upcase(ext);
 	%if %index(&dir , \) = 0 and %index(&dir , /)=0 %then
 		%do;
 			%let lib_bit = &dir..;
