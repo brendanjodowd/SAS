@@ -802,7 +802,7 @@ E.g.
 %put %list_datasets(WORK);
 */
 
-%macro list_datasets(dir );
+%macro list_datasets(dir , ext = SAS7BDAT );
 	%local filrf rc did memcnt name i folder_name return_list_datasets lib_bit;
 	%let lib_bit = ;
 	%if %index(&dir , \) = 0 and %index(&dir , /)=0 %then
@@ -826,7 +826,7 @@ E.g.
 	%do i = 1 %to %sysfunc(dnum(&did));
 		%let name=%qsysfunc(dread(&did,&i));
 
-		%if %qupcase(%qscan(&name,-1,.)) = SAS7BDAT %then
+		%if %qupcase(%qscan(&name,-1,.)) = &ext %then
 			%do;
 				%LET return_list_datasets = &return_list_datasets &lib_bit.%qscan(&name,1,.);
 			%end;
