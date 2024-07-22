@@ -202,6 +202,18 @@ run;
 %mend;
 
 /*#####################################################################################*/
+/*                                 ADD_PIPES                                          */
+/*
+%put here are the variables with pipes: %add_pipes(make type year cylinders );
+*/
+%macro add_pipes(list  );
+%local result list;
+%let list = %cmpres(&list);
+%let result = %sysfunc(tranwrd(&list , %STR( ) , %STR(|)));
+&result
+%mend;
+
+/*#####################################################################################*/
 /*                                 ADD_QUOTES                                          */
 
 %macro add_quotes(sentence , phrases);
