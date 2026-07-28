@@ -1,0 +1,19 @@
+{
+  "_captured_at": "2026-07-28T05:25:20Z",
+  "_captured_run_id": "r_98c58501e0f64713b3ed199f5cb4107e",
+  "status": "ok",
+  "exit_code": 0,
+  "log_contains": [
+    "title_exists is 0",
+    "NOTE: PROC FREQ statement used.",
+    "NOTE: PROC SQL statement used."
+  ],
+  "log_does_not_contain": [
+    "ERROR:",
+    "[JENNER-ERROR"
+  ],
+  "diagnostics": {
+    "parse_warnings": [],
+    "runtime_warnings": []
+  }
+}

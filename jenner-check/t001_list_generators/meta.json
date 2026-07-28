@@ -1,0 +1,7 @@
+{
+  "bundle": "t001_list_generators",
+  "source_file": "brendan_macros.sas",
+  "source_blob_sha": "6b9307a953e012a6ec3da7eb99b64e00113e84f6",
+  "source_commit": "a44e5bb70704d748f03dc83868a9b95393fc9ca1",
+  "notes": "List-generation macros (%seq %add_prefix %add_suffix %add_commas %rep %is_int %is_blank) with the authors documented %put examples; no external data."
+}

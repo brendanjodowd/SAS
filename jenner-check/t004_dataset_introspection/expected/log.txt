@@ -1,0 +1,6 @@
+LIST_VARS: Make Model Type Origin DriveTrain MSRP Invoice EngineSize Cylinders Horsepower MPG_City MPG_Highway Weight Wheelbase Length
+VAR_EXIST_model: 1
+VAR_EXIST_sandwich: 0
+VAR_TYPE_origin: C
+VAR_LENGTH_Origin: 8
+NOTE: Option OBS changed to 100.

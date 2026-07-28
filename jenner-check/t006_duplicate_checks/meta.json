@@ -1,0 +1,7 @@
+{
+  "bundle": "t006_duplicate_checks",
+  "source_file": "brendan_macros.sas",
+  "source_blob_sha": "6b9307a953e012a6ec3da7eb99b64e00113e84f6",
+  "source_commit": "a44e5bb70704d748f03dc83868a9b95393fc9ca1",
+  "notes": "Duplicate-checking macros (%check_duplicates %abort_if_duplicates %delete_dataset): nested PROC SQL aggregation + PROC DATASETS + DATA-step reporting, run on sashelp.iris as in the documented examples."
+}

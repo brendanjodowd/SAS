@@ -1,0 +1,11 @@
+SEQ: 10 11 12 13 14 15
+ADD_PREFIX: p_1 p_2 p_3 p_4
+ADD_PREFIX_LIT: p_1 p_2 p_3 p_4
+ADD_SUFFIX: 1_p 2_p 3_p 4_p
+ADD_COMMAS: make, type, year, cylinders
+REP_TIMES: cat dog fish cat dog fish cat dog fish cat dog fish cat dog fish cat dog fish
+IS_INT_2007: 1
+IS_INT_123rabbit: 0
+IS_BLANK_EMPTY: 1
+IS_BLANK_HELLO: 0
+NOTE: Option OBS changed to 100.

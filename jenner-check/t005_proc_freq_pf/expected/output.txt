@@ -1,0 +1,21 @@
+                                                   The FREQ Procedure
+
+                                          Cumulative    Cumulative
+Vehicle type    Frequency    Percent     Frequency      Percent
+---------------------------------------------------------------------
+SUV                     2     16.67            2        16.67
+Sedan                  10     83.33           12       100.00
+                                                   The FREQ Procedure
+
+Table of Region of origin by Vehicle type
+
+Region of origin |       SUV |     Sedan |      Total
+-----------------+-----------+-----------+-----------
+Asia             |         1 |         7 |          8
+-----------------+-----------+-----------+-----------
+Europe           |         1 |         1 |          2
+-----------------+-----------+-----------+-----------
+USA              |         0 |         2 |          2
+-----------------+-----------+-----------+-----------
+Total            |         2 |        10 |         12
+

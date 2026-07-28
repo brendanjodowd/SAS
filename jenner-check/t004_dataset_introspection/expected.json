@@ -1,0 +1,21 @@
+{
+  "_captured_at": "2026-07-28T05:25:20Z",
+  "_captured_run_id": "r_718c9b4ea88e4a74bf0b186d3478268d",
+  "status": "ok",
+  "exit_code": 0,
+  "log_contains": [
+    "LIST_VARS: Make Model Type Origin DriveTrain MSRP Invoice EngineSize Cylinders Horsepower MPG_City MPG_Highway Weight Wheelbase Length",
+    "VAR_EXIST_model: 1",
+    "VAR_EXIST_sandwich: 0",
+    "VAR_TYPE_origin: C",
+    "VAR_LENGTH_Origin: 8"
+  ],
+  "log_does_not_contain": [
+    "ERROR:",
+    "[JENNER-ERROR"
+  ],
+  "diagnostics": {
+    "parse_warnings": [],
+    "runtime_warnings": []
+  }
+}
