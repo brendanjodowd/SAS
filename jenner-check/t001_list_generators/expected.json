@@ -1,0 +1,20 @@
+{
+  "_captured_at": "2026-07-28T05:25:20Z",
+  "_captured_run_id": "r_3cf40ead285d4d36b5ce342b8c80f5f2",
+  "status": "ok",
+  "exit_code": 0,
+  "log_contains": [
+    "SEQ: 10 11 12 13 14 15",
+    "ADD_COMMAS: make, type, year, cylinders",
+    "IS_INT_2007: 1",
+    "IS_INT_123rabbit: 0"
+  ],
+  "log_does_not_contain": [
+    "ERROR:",
+    "[JENNER-ERROR"
+  ],
+  "diagnostics": {
+    "parse_warnings": [],
+    "runtime_warnings": []
+  }
+}

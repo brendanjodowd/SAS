@@ -1,0 +1,19 @@
+{
+  "_captured_at": "2026-07-28T05:25:20Z",
+  "_captured_run_id": "r_5d6749b1090c4d76b5fd2f4bb452b622",
+  "status": "ok",
+  "exit_code": 0,
+  "log_contains": [
+    "FIRST_WORD: The",
+    "LAST_WORD: is",
+    "REPLACE_WORD: It has been a busy day for Mister Squirrel as he goes about his Squirrel business"
+  ],
+  "log_does_not_contain": [
+    "ERROR:",
+    "[JENNER-ERROR"
+  ],
+  "diagnostics": {
+    "parse_warnings": [],
+    "runtime_warnings": []
+  }
+}

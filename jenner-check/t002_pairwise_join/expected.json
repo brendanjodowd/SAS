@@ -1,0 +1,19 @@
+{
+  "_captured_at": "2026-07-28T05:25:20Z",
+  "_captured_run_id": "r_c178d94814444922b903d57f13a781ae",
+  "status": "ok",
+  "exit_code": 0,
+  "log_contains": [
+    "PAIRWISE: handbag football treehouse",
+    "PAIRWISE_DOT: library_2010.file_2010 library_2012.file_2012",
+    "PAIRWISE_SPACE: cat bed dog house bird cage"
+  ],
+  "log_does_not_contain": [
+    "ERROR:",
+    "[JENNER-ERROR"
+  ],
+  "diagnostics": {
+    "parse_warnings": [],
+    "runtime_warnings": []
+  }
+}

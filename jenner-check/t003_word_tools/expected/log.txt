@@ -1,0 +1,4 @@
+FIRST_WORD: The
+LAST_WORD: is
+REPLACE_WORD: It has been a busy day for Mister Squirrel as he goes about his Squirrel business
+NOTE: Option OBS changed to 100.

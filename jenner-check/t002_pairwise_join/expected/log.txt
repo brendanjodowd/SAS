@@ -1,0 +1,4 @@
+PAIRWISE: handbag football treehouse
+PAIRWISE_DOT: library_2010.file_2010 library_2012.file_2012
+PAIRWISE_SPACE: cat bed dog house bird cage
+NOTE: Option OBS changed to 100.

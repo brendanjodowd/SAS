@@ -1,0 +1,19 @@
+{
+  "_captured_at": "2026-07-28T05:25:20Z",
+  "_captured_run_id": "r_549415a414494aca851d2c5c488afbc1",
+  "status": "ok",
+  "exit_code": 0,
+  "log_contains": [
+    "Dataset: sashelp.iris",
+    "NOTE: PROC DATASETS library=WORK",
+    "NOTE: 1 dataset(s) deleted."
+  ],
+  "log_does_not_contain": [
+    "ERROR:",
+    "[JENNER-ERROR"
+  ],
+  "diagnostics": {
+    "parse_warnings": [],
+    "runtime_warnings": []
+  }
+}

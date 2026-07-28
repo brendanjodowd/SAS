@@ -1,0 +1,7 @@
+{
+  "bundle": "t004_dataset_introspection",
+  "source_file": "brendan_macros.sas",
+  "source_blob_sha": "6b9307a953e012a6ec3da7eb99b64e00113e84f6",
+  "source_commit": "a44e5bb70704d748f03dc83868a9b95393fc9ca1",
+  "notes": "Dataset-introspection macros (%list_vars %var_exist %var_type %var_length) via the open/attrn/varname/varnum/vartype/varlen SAS functions, run against sashelp.cars as in the documented examples."
+}
